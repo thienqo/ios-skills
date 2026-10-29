@@ -1,6 +1,6 @@
 # SwiftUI Navigation and Observation Migrations
 
-A comprehensive mapping of deprecated, legacy, or fragile SwiftUI and iOS patterns to modern defaults from iOS 15 through iOS 26. Each section shows the old pattern, the modern replacement, and migration notes. Target iOS 26 with Swift 6.3; backward-compatible to iOS 16 unless noted.
+A comprehensive mapping of deprecated, legacy, or fragile SwiftUI and iOS patterns to modern defaults from iOS 15 through iOS 26. Each section shows the old pattern, the modern replacement, and migration notes. Target iOS 26 with Swift 6.4; backward-compatible to iOS 16 unless noted.
 
 ## NavigationView to NavigationStack
 

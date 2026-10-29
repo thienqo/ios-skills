@@ -8,7 +8,7 @@ description: "Build alternative browser engines using BrowserEngineKit. Use when
 Framework for building web browsers with alternative (non-WebKit) rendering
 engines on iOS and iPadOS. Provides process isolation, XPC communication,
 capability management, and system integration for browser apps that implement
-their own HTML/CSS/JavaScript engine. Examples target Swift 6.3 and current
+their own HTML/CSS/JavaScript engine. Examples target Swift 6.4 and current
 Apple SDKs.
 
 BrowserEngineKit is a specialized framework. Alternative browser engines are

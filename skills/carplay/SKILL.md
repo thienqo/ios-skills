@@ -6,7 +6,7 @@ description: "Builds eligible CarPlay navigation, audio, communication, EV charg
 # CarPlay
 
 Build category-entitled, template-based CarPlay apps for the vehicle display.
-Scope: Swift 6.3, iOS 26+.
+Scope: Swift 6.4, iOS 26+.
 
 See [references/carplay-patterns.md](references/carplay-patterns.md) for extended patterns including full
 navigation sessions, dashboard scenes, and advanced template composition.

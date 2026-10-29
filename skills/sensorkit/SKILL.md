@@ -5,7 +5,7 @@ description: "Access ambient, motion, biometric, and interaction research data u
 
 # SensorKit
 
-Access granular ambient, motion, biometric, and interaction sensor streams for approved research and clinical studies using `SRSensorReader`. Targets Swift 6.3 / iOS 26+.
+Access granular ambient, motion, biometric, and interaction sensor streams for approved research and clinical studies using `SRSensorReader`. Targets Swift 6.4 / iOS 26+.
 
 > **Entitlement Warning:** SensorKit requires Apple entitlement approval (`com.apple.developer.sensorkit.reader.allow`). SensorKit cannot be tested on standard consumer apps or simulators without approved research provisioning.
 

@@ -9,7 +9,7 @@ One-time cross-platform data transfer for app resources. Enables apps to
 export data to or import data from another platform (for example, Android)
 during device setup or onboarding. AppMigrationKit APIs are iOS 26.0+ /
 iPadOS 26.0+; the data-container entitlement is iOS 26.1+ / iPadOS 26.1+ /
-Mac Catalyst 26.1+. Swift 6.3.
+Mac Catalyst 26.1+. Swift 6.4.
 
 > **Beta-sensitive.** AppMigrationKit is new in iOS 26 and may change before GM.
 > Re-check current Apple documentation before relying on specific API details.

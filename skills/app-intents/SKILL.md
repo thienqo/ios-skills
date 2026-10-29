@@ -5,7 +5,7 @@ description: "Implement App Intents for Siri, Shortcuts, Spotlight, widgets, Con
 
 # App Intents
 
-Expose app actions and entities to Siri, Shortcuts, Spotlight search, interactive widgets, Control Center, and Apple Intelligence using the `AppIntents` framework. Targets Swift 6.3 / iOS 26+.
+Expose app actions and entities to Siri, Shortcuts, Spotlight search, interactive widgets, Control Center, and Apple Intelligence using the `AppIntents` framework. Targets Swift 6.4 / iOS 26+.
 
 ## Contents
 

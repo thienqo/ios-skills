@@ -5,7 +5,7 @@ description: "Integrate Apple Pay and Wallet passes with PassKit. Use for paymen
 
 # PassKit
 
-Accept Apple Pay payments for physical goods, real-world services, donations, and recurring subscriptions, and manage Wallet passes. Targets Swift 6.3 / iOS 26+.
+Accept Apple Pay payments for physical goods, real-world services, donations, and recurring subscriptions, and manage Wallet passes. Targets Swift 6.4 / iOS 26+.
 
 > **Constraint:** A single `PKPaymentRequest` supports at most one optional advanced request type (recurring, automatic reload, deferred, Apple Pay Later, or multi-token). Use separate requests if a transaction requires multiple modes.
 

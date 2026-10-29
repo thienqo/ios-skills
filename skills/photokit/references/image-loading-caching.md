@@ -1,6 +1,6 @@
 # Image Loading and Caching Patterns
 
-Complete patterns for efficient image handling in iOS apps, from basic AsyncImage usage through production-ready caching and loading pipelines. All patterns use modern Swift async/await and target iOS 26 with Swift 6.3, backward-compatible to iOS 16 unless noted.
+Complete patterns for efficient image handling in iOS apps, from basic AsyncImage usage through production-ready caching and loading pipelines. All patterns use modern Swift async/await and target iOS 26 with Swift 6.4, backward-compatible to iOS 16 unless noted.
 
 ## Contents
 - AsyncImage Patterns

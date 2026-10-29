@@ -5,7 +5,7 @@ description: "Builds or reviews Apple-platform networking with URLSession, async
 
 # iOS Networking
 
-Build and review Apple-platform networking using `URLSession` with native async/await, structured concurrency, and `Network.framework`. Targets Swift 6.3 / iOS 26+.
+Build and review Apple-platform networking using `URLSession` with native async/await, structured concurrency, and `Network.framework`. Targets Swift 6.4 / iOS 26+.
 
 ## Contents
 

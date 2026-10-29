@@ -5,7 +5,7 @@ description: "Builds HealthKit authorization, sample reads/writes, statistics, b
 
 # HealthKit
 
-Access, query, and store health and fitness metrics in Apple Health using `HealthKit`. Covers authorization, quantity samples, statistics collection queries, background delivery, and workout sessions. Targets Swift 6.3 / iOS 26+.
+Access, query, and store health and fitness metrics in Apple Health using `HealthKit`. Covers authorization, quantity samples, statistics collection queries, background delivery, and workout sessions. Targets Swift 6.4 / iOS 26+.
 
 ## Contents
 

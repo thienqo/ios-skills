@@ -7,7 +7,7 @@ description: "Increase widget visibility on Apple Watch using RelevanceKit. Use 
 
 Use RelevanceKit to tell the Apple Watch Smart Stack when a widget matters by
 time, location, fitness state, sleep schedule, or connected hardware. Targets
-Swift 6.3 and watchOS 26+ relevant-widget workflows.
+Swift 6.4 and watchOS 26+ relevant-widget workflows.
 
 > **Beta-sensitive.** Re-check current Apple documentation before changing
 > availability, signatures, or Smart Stack behavior.

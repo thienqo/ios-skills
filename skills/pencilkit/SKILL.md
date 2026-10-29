@@ -5,7 +5,7 @@ description: "Implement drawing, handwriting, and sketching with PencilKit and P
 
 # PencilKit
 
-Integrate drawing, sketching, and annotation into iOS and iPadOS apps using `PencilKit` (`PKCanvasView`, `PKToolPicker`, `PKDrawing`) and `PaperKit`. Targets Swift 6.3 / iOS 26+.
+Integrate drawing, sketching, and annotation into iOS and iPadOS apps using `PencilKit` (`PKCanvasView`, `PKToolPicker`, `PKDrawing`) and `PaperKit`. Targets Swift 6.4 / iOS 26+.
 
 ## Contents
 
