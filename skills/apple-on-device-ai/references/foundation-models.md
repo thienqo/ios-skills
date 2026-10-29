@@ -1,6 +1,7 @@
 # Foundation Models API Reference
 
 Complete reference for Apple's Foundation Models framework (iOS 26+ / macOS 26+).
+For iOS 27 additions (custom `LanguageModel`, Private Cloud Compute, image prompts, Dynamic Profiles), see [foundation-models-ios27.md](foundation-models-ios27.md).
 On-device language model optimized for Apple Silicon. No app-managed API key,
 model hosting, or network round trip for generation; still handle Apple
 Intelligence and system model asset availability.

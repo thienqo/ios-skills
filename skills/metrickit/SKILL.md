@@ -278,7 +278,7 @@ MetricKit identifies production symptoms and trends. Route the actual code fix t
 - [ ] Extended launch work uses `trackLaunchTask`.
 - [ ] The iOS 26 `MXMetricManager` path is isolated behind availability checks.
 - [ ] Production aggregates lead to a local Instruments investigation when appropriate.
-- [ ] iOS 27 beta APIs have been rechecked and compiled with the shipping Xcode 27 SDK.
+- [ ] iOS 27 APIs have been compiled with the shipping Xcode 27 SDK.
 
 ## References
 

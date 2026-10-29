@@ -8,6 +8,7 @@ Warning-severity issues, programmatic test cancellation, and image attachments f
 - [Programmatic Test Cancellation](#programmatic-test-cancellation)
 - [Exit Test Value Capturing](#exit-test-value-capturing)
 - [Image Attachments](#image-attachments)
+- [Xcode 27 / Swift 6.4 Testing Changes](#xcode-27--swift-64-testing-changes)
 - [Version Gates](#version-gates)
 - [Proposal Reference](#proposal-reference)
 
@@ -99,6 +100,16 @@ Supported Apple-platform image types include:
 - `CIImage` when importing CoreImage
 - `NSImage` on macOS when importing AppKit
 
+## Xcode 27 / Swift 6.4 Testing Changes
+
+- **XCTest interoperability**: XCTest assertions called from a Swift Testing test are reported as test issues, and `#expect` works inside `XCTestCase`. Both are warnings by default; a Swift Testing and XCTest interoperability build setting promotes them to failures. This allows incremental migration.
+- **`swift test`**: `--maximum-repetitions` with `--repeat-until` re-runs tests until they pass or fail; with "until pass", only failing tests re-run. Failures are summarized across targets.
+- **Test plans**: UI tests can set crash severity (off, warning, failure, fatal failure).
+- **XCUITest**: `XCUIVoiceOverService` drives VoiceOver in UI tests.
+- **Parameterized tests**: result links include an argument hash; large suites run faster.
+
+Gate these on Xcode 27 / Swift 6.4.
+
 ## Version Gates
 
 | Feature | Minimum toolchain / platform |
@@ -109,6 +120,7 @@ Supported Apple-platform image types include:
 | `Issue.record(_:severity:)` warnings | Swift 6.3 / Xcode 26.4 |
 | `Test.cancel(_:)` | Swift 6.3 / Xcode 26.4 |
 | Image attachment recording | Swift 6.3 / Xcode 26.4 |
+| XCTest / Swift Testing interop, `--repeat-until`, `XCUIVoiceOverService` | Swift 6.4 / Xcode 27 |
 
 Do not use exit tests for iOS, tvOS, or watchOS runtime targets. For iOS app code that needs fatal-path coverage, move the exit behavior behind a smaller pure Swift API, test the non-exiting branches directly, and reserve exit tests for a supported host/tool target.
 

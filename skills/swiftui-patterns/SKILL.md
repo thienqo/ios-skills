@@ -35,7 +35,7 @@ Route detailed containers and controls to `swiftui-layout-components`, cross-siz
 
 ## Compatibility Preflight
 
-Inspect the project's deployment target, Swift language mode, and available SDK before recommending versioned APIs. Preserve those settings unless the user requests a change; gate newer APIs and verify availability against SDK headers or primary Apple/Swift documentation.
+Inspect the project's deployment target, Swift language mode, and available SDK before recommending versioned APIs. Preserve those settings unless the user requests a change; gate newer APIs and verify availability against SDK headers or primary Apple/Swift documentation. Building with Xcode 27 changes `@State` to a macro with source-breaking edge cases and deprecates `PreviewProvider` and `FileDocument`; read [iOS 27 Updates](references/ios27-updates.md) before upgrading a project.
 
 ## Workflow
 
@@ -121,3 +121,4 @@ Read [Isolated Preview Construction](references/preview-isolation.md) when a pre
 - View styling, lifecycle, and layout migration: [references/migration-view-lifecycle-layout.md](references/migration-view-lifecycle-layout.md)
 - List, data, interop, and modern API migration: [references/migration-data-and-modern-apis.md](references/migration-data-and-modern-apis.md)
 - Platform and sharing patterns: [references/platform-and-sharing.md](references/platform-and-sharing.md)
+- `@State` macro, `ContentBuilder`, documents, and iOS 27 deprecations: [references/ios27-updates.md](references/ios27-updates.md)

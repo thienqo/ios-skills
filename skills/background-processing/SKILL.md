@@ -13,6 +13,7 @@ Register, schedule, and execute background tasks on iOS using BackgroundTasks (`
 - [Task Selection Matrix](#task-selection-matrix)
 - [Core Lifecycle Rules](#core-lifecycle-rules)
 - [Route by Task](#route-by-task)
+- [iOS 27 Updates](#ios-27-updates)
 - [Common Mistakes](#common-mistakes)
 - [Review Checklist](#review-checklist)
 - [References](#references)
@@ -63,6 +64,15 @@ In Xcode: Target > Signing & Capabilities > Background Modes > enable **Backgrou
 - For background downloads, uploads, and handling app relaunch in `handleEventsForBackgroundURLSession`, read [Background URLSession Extended Patterns](references/background-task-patterns.md#background-urlsession--extended-patterns).
 - For background push throttling and payload constraints, read [Background Push Extended Patterns](references/background-task-patterns.md#background-push--extended-patterns).
 - For continued processing tasks conforming to `ProgressReporting`, read [BGContinuedProcessingTask Patterns](references/background-task-patterns.md#bgcontinuedprocessingtask--extended-patterns).
+
+## iOS 27 Updates
+
+- Background Neural Engine access is restricted, like GPU limits. Background inference needs the entitlement `com.apple.developer.background-tasks.continued-processing.inference`.
+- `UIScene.extendStateRestoration` and `UIScene.completeStateRestoration` extend state restoration across background-to-foreground transitions.
+- Apps built with the iOS 27 SDK must use the scene-based life cycle or they fail to launch.
+- On Demand Resources and `NSBundleResourceRequest` are deprecated; use Background Assets. Background Assets adds localized asset packs, delivered by the user's preferred languages.
+
+Sources: https://sosumi.ai/documentation/ios-ipados-release-notes/ios-ipados-27-release-notes
 
 ## Common Mistakes
 

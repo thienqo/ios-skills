@@ -67,6 +67,8 @@ Expose voice triggers without requiring user setup via `AppShortcutsProvider`:
 - For Siri voice matching, confirmation dialogs, and authentication policies, read [Assistant Focus and Intent Behavior](references/assistant-focus-and-intent-behavior.md).
 - For Spotlight search indexing, deep link routing, and `IndexedEntity`, read [URL and Spotlight Integration](references/url-and-spotlight-integration.md).
 
+- For iOS 27 on-screen annotations, new intent and entity protocols (`SyncableEntity`, `LongRunningIntent`, `OwnershipProvidingEntity`), and AppIntentsTesting, read [iOS 27 Annotations and Testing](references/ios27-annotations-and-testing.md).
+
 ## Common Mistakes
 
 - Performing UI navigation or view presentation directly inside `perform()` without returning an `OpenURLIntent` or navigation result.
@@ -91,5 +93,6 @@ Expose voice triggers without requiring user setup via `AppShortcutsProvider`:
 - [System surfaces: widgets, controls, and snippets](references/system-surfaces.md)
 - [Assistant focus, voice dialogs, and intent behavior](references/assistant-focus-and-intent-behavior.md)
 - [URL and Spotlight search indexing](references/url-and-spotlight-integration.md)
+- [iOS 27 annotations, new protocols, and AppIntentsTesting](references/ios27-annotations-and-testing.md)
 - [App Intents documentation](https://sosumi.ai/documentation/appintents)
 - [AppIntent](https://sosumi.ai/documentation/appintents/appintent)

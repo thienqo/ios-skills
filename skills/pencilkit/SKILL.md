@@ -14,6 +14,7 @@ Integrate drawing, sketching, and annotation into iOS and iPadOS apps using `Pen
 - [Drawing Persistence and Data](#drawing-persistence-and-data)
 - [Input Policy and Gestures](#input-policy-and-gestures)
 - [Route by Task](#route-by-task)
+- [iOS 27 Updates](#ios-27-updates)
 - [Common Mistakes](#common-mistakes)
 - [Review Checklist](#review-checklist)
 - [References](#references)
@@ -93,6 +94,12 @@ Coordinating `PKToolPicker`: Attach the picker with `toolPicker.setVisible(true,
 - For stroke construction, comparison, and shape recognition, read [Constructing Strokes Programmatically](references/pencilkit-patterns.md#constructing-strokes-programmatically).
 - For thumbnail generation and background image rendering, read [Thumbnail Generation](references/pencilkit-patterns.md#thumbnail-generation).
 - For undo/redo coordination with `UndoManager`, read [Undo/Redo Support](references/pencilkit-patterns.md#undoredo-support).
+
+## iOS 27 Updates
+
+- `__PKStrokeRenderState` is renamed `PKStrokeRenderStateReference`. Its initializer replaces `PKStrokeRenderState.asObjCRenderState()`.
+
+Sources: https://sosumi.ai/documentation/ios-ipados-release-notes/ios-ipados-27-release-notes
 
 ## Common Mistakes
 

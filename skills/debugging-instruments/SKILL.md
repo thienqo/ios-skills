@@ -15,6 +15,7 @@ Diagnose crashes, memory leaks, hangs, and performance bottlenecks using LLDB, X
 - [Memory Graph & Retain Cycles](#memory-graph--retain-cycles)
 - [Hangs & Signpost Diagnostics](#hangs--signpost-diagnostics)
 - [Instruments Profiling](#instruments-profiling)
+- [iOS 27 Updates](#ios-27-updates)
 - [Common Mistakes](#common-mistakes)
 - [Review Checklist](#review-checklist)
 - [References](#references)
@@ -78,6 +79,17 @@ Always profile in **Release configuration** outside the debugger (Product > Prof
 - **Allocations & Leaks**: Tracks heap growth, memory allocations, and leaked memory over time.
 - **Core ML**: Measures model execution latency, neural engine offload, and memory consumption.
 - **Energy Log / Network**: Audits battery impact and network transfer efficiency.
+
+## iOS 27 Updates
+
+- New instruments: Swift Executors and Foundation Models. System Trace unifies system calls, VM faults, and thread states.
+- Swift Concurrency tracks are grouped into collections; tasks whose lifetimes began before the trace are shown.
+- `xctrace record` accepts recording options as JSON; `xctrace export` gains time-range arguments and accepts `.atrc` and `.logarchive` input.
+- Neural Engine memory is attributed to the app and shows in the Allocations instrument.
+- Organizer adds Hitches, Storage metrics, and AI-driven diagnostic analysis.
+- Address Sanitizer may fail to launch on 27.0 OS targets when built with Xcode 26.4 or older; use Xcode 26.5 or later.
+
+Sources: https://sosumi.ai/documentation/xcode-release-notes/xcode-27-release-notes, https://sosumi.ai/documentation/ios-ipados-release-notes/ios-ipados-27-release-notes
 
 ## Common Mistakes
 

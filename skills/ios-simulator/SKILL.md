@@ -15,6 +15,7 @@ Use Simulator as a reproducible verification environment while keeping device se
 - [State and Diagnostics](#state-and-diagnostics)
 - [Recovery](#recovery)
 - [Verification Matrix](#verification-matrix)
+- [iOS 27 Updates](#ios-27-updates)
 - [Common Mistakes](#common-mistakes)
 - [Review Checklist](#review-checklist)
 - [References](#references)
@@ -77,6 +78,16 @@ Choose checks proportional to the change:
 - screenshots of important states
 - focused logs for crashes or runtime warnings
 - real-device follow-up for unsupported hardware behavior
+
+## iOS 27 Updates
+
+- `simctl` and `devicectl` can reboot simulators. Runtimes ship a pre-built dyld cache for faster first launch.
+- Device Hub supports network pairing and mouse/trackpad gestures in simulators; these generate UIKit scroll, transform, and pointer events and do not match physical devices.
+- `devicectl` JSON output version 5 deprecates `hardwareProperties`, `deviceProperties`, and `connectionProperties` in favor of `properties`.
+- Known issue (27.2): cloning a 27.2 runtime simulator may fail due to file permissions.
+- Agents in Xcode 27 can boot simulators, install and launch apps, and capture screenshots.
+
+Sources: https://sosumi.ai/documentation/xcode-release-notes/xcode-27-release-notes, https://sosumi.ai/documentation/ios-ipados-release-notes/ios-ipados-27_2-release-notes
 
 ## Common Mistakes
 
