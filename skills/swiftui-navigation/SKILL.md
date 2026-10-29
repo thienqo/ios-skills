@@ -5,7 +5,7 @@ description: "Implement SwiftUI navigation patterns including NavigationStack, N
 
 # SwiftUI Navigation
 
-Navigation patterns for SwiftUI apps targeting iOS 26+ with Swift 6.3. Covers push navigation, multi-column layouts, sheet presentation, tab architecture, and deep linking. Patterns are backward-compatible to iOS 17 unless noted.
+Navigation patterns for SwiftUI apps targeting iOS 26+ (iOS 27 additions in [references/ios27-toolbars-tabs.md](references/ios27-toolbars-tabs.md)) with Swift 6.3 or later. Covers push navigation, multi-column layouts, sheet presentation, tab architecture, and deep linking. Patterns are backward-compatible to iOS 17 unless noted.
 
 ## Contents
 
@@ -269,6 +269,7 @@ See [references/deeplinks.md](references/deeplinks.md) for full examples of AASA
 - NavigationStack and router patterns: [references/navigationstack.md](references/navigationstack.md)
 - Sheet presentation and routing: [references/sheets.md](references/sheets.md)
 - TabView patterns and iOS 26 API: [references/tabview.md](references/tabview.md)
+- iOS 27 navigation bar minimization, toolbar overflow, status bar, tab changes: [references/ios27-toolbars-tabs.md](references/ios27-toolbars-tabs.md)
 - Deep links, universal links, and Handoff: [references/deeplinks.md](references/deeplinks.md)
 - Architecture and state management: see `swiftui-patterns` skill
 - Layout and components: see `swiftui-layout-components` skill

@@ -17,6 +17,7 @@ Coordinate an end-to-end iOS delivery without loading unrelated framework guidan
 - [Implementation](#implementation)
 - [Verification](#verification)
 - [Completion](#completion)
+- [iOS 27 Updates](#ios-27-updates)
 - [Common Mistakes](#common-mistakes)
 - [Review Checklist](#review-checklist)
 - [References](#references)
@@ -112,6 +113,15 @@ Simulator verification is not proof for device-only hardware or production APNs 
 ## Completion
 
 Report the result first, then changed structure, verification performed, and any real limitation. Do not commit, push, publish, change signing, or mutate external systems unless the user authorized that action.
+
+## iOS 27 Updates
+
+- Xcode 27 ships Swift 6.4 and the iOS 27 SDK, installs only on Apple silicon Macs, and requires macOS Tahoe 26.6 or later. The ld64 linker is removed; Swift Build is the default SwiftPM backend.
+- Building with the 27 SDK: adopt the scene-based life cycle, include a launch screen key, expect the `@State` macro and `PreviewProvider` deprecation (see `swiftui-patterns`).
+- Xcode 27 adds coding-agent integration (Anthropic, Google, OpenAI), MCP and Agent Client Protocol plugins, and `xcrun mcp-server` (enable with `sudo xcrun mcp-server enable`).
+- Device Hub replaces ad hoc device and simulator interaction, with network pairing for iPhone, iPad, and Apple Watch on 27 and later.
+
+Sources: https://sosumi.ai/documentation/xcode-release-notes/xcode-27-release-notes
 
 ## Common Mistakes
 

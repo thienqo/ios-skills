@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+### iOS 27 / Xcode 27 / Swift 6.4
+
+- Add `apple-on-device-ai` references for Foundation Models in iOS 27 (`LanguageModel` protocol, `PrivateCloudComputeLanguageModel`, multimodal prompts, Dynamic Profiles, Core AI model sessions) and for Core AI.
+- Add SwiftUI iOS 27 references: `@State` macro and `ContentBuilder`, documents, deprecations (`swiftui-patterns`); navigation bar minimization, toolbar overflow, tabs (`swiftui-navigation`); reorderable and drag containers and `ArrangementView` (`swiftui-layout-components`).
+- Add Swift 6.4 reference to `swift-language`; add Xcode 27 testing changes to `swift-testing`; remove beta wording from shipped Swift 6.4, SwiftData, and MetricKit guidance.
+- Add App Intents iOS 27 reference covering on-screen annotations, `SyncableEntity`, `OwnershipProvidingEntity`, `LongRunningIntent`, and AppIntentsTesting.
+- Add `iOS 27 Updates` sections to `storekit`, `healthkit`, `photokit`, `pencilkit`, `background-processing`, `app-store-review`, `swiftui-uikit-interop`, `ios-app-workflow`, `debugging-instruments`, `ios-simulator`, and `ios-localization`.
+
 ## 1.3.0 - 2026-09-06
 
 ### Skills

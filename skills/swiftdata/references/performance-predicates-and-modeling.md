@@ -187,7 +187,7 @@ func buildPredicate(
 
 Compatible `Codable` structs can be represented as composite attributes in the
 SwiftData schema. Current Apple docs expose `Schema.CompositeAttribute` on
-iOS 17+, while the explicit `@Attribute(.codable)` option is iOS 27 beta.
+iOS 17+, while the explicit `@Attribute(.codable)` option requires iOS 27.
 Do not describe `Codable` value storage as an iOS 18-only feature.
 
 ```swift

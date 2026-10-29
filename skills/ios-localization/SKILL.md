@@ -14,6 +14,7 @@ Localize Apple-platform applications using String Catalogs (`.xcstrings`), compi
 - [Pluralization & Variations](#pluralization--variations)
 - [FormatStyle & Locales](#formatstyle--locales)
 - [Right-to-Left (RTL) Layout](#right-to-left-rtl-layout)
+- [iOS 27 Updates](#ios-27-updates)
 - [Common Mistakes](#common-mistakes)
 - [Review Checklist](#review-checklist)
 - [References](#references)
@@ -68,6 +69,14 @@ let relativeString = eventDate.formatted(.relative(presentation: .named))
 
 - Use leading/trailing layout constraints rather than absolute left/right.
 - Directional SF Symbols mirror automatically; set `.imageScale` or disable mirroring only when representing physical hardware orientation.
+
+## iOS 27 Updates
+
+- Xcode 27 agents can translate String Catalogs; the editor adds a Generate Translations button. Review generated translations like any machine translation.
+- Strings with a "do not translate" comment are marked accordingly. Export extracts localization macros from header files.
+- Background Assets supports localized asset packs matching the user's preferred languages.
+
+Sources: https://sosumi.ai/documentation/xcode-release-notes/xcode-27-release-notes, https://sosumi.ai/documentation/ios-ipados-release-notes/ios-ipados-27-release-notes
 
 ## Common Mistakes
 

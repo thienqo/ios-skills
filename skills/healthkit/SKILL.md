@@ -14,6 +14,7 @@ Access, query, and store health and fitness metrics in Apple Health using `Healt
 - [Query Selection Matrix](#query-selection-matrix)
 - [Writing Samples and Units](#writing-samples-and-units)
 - [Route by Task](#route-by-task)
+- [iOS 27 Updates](#ios-27-updates)
 - [Common Mistakes](#common-mistakes)
 - [Review Checklist](#review-checklist)
 - [References](#references)
@@ -59,6 +60,14 @@ Always specify compatible `HKUnit`s matching the quantity type. For cumulative m
 - For background observation and setting up `enableBackgroundDelivery`, read [Background Delivery](references/healthkit-patterns.md#background-delivery).
 - For recording live workouts with `HKWorkoutSession` and `HKLiveWorkoutBuilder`, read [Live Workout Sessions](references/healthkit-patterns.md#workout-sessions).
 - For complete HKUnit string formats, conversion, and compound units, read [HKUnit Reference](references/healthkit-patterns.md#hkunit-reference).
+
+## iOS 27 Updates
+
+- New heart rate zones and cycling power zones.
+- Updated permissions flow: people can grant limited or full history access. Do not assume full history after authorization.
+- `HKCategoryTypeIdentifierMenopausalState` (`menopause`, `perimenopause`, `none`) and `HKCategoryTypeIdentifierBleedingAfterMenopause` (`unspecified`, `light`, `medium`, `heavy`). Both are read/write, fall under Reproductive Health, and use standard category authorization.
+
+Sources: https://sosumi.ai/documentation/ios-ipados-release-notes/ios-ipados-27-release-notes
 
 ## Common Mistakes
 

@@ -304,8 +304,8 @@ struct SortedTripList: View {
 ## Sectioned Queries Pattern
 
 Current Apple docs include `sectionBy:` `Query` initializers for sectioned
-queries in iOS 27 / Xcode 27 beta. Use them only when the deployment target and
-SDK support those beta APIs.
+queries in iOS 27 / Xcode 27. Use them only when the deployment target and
+SDK support those APIs.
 
 For iOS 26-compatible guidance, custom grouping, or section keys derived from
 formatters/business logic, build sectioned views manually:

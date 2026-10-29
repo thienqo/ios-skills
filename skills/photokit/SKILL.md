@@ -14,6 +14,7 @@ Build media selection, camera capture, photo library queries, and image caching 
 - [Image Loading and Caching](#image-loading-and-caching)
 - [Camera Capture Boundaries](#camera-capture-boundaries)
 - [Route by Task](#route-by-task)
+- [iOS 27 Updates](#ios-27-updates)
 - [Common Mistakes](#common-mistakes)
 - [Review Checklist](#review-checklist)
 - [References](#references)
@@ -71,6 +72,12 @@ For custom camera viewfinders using `AVCaptureSession`:
 - For complete camera controllers, photo capture, video recording, and barcode scanning, read [Camera Capture Patterns](references/camera-capture.md).
 - For asset fetching, thumbnail caching with `PHCachingImageManager`, and memory management, read [Image Loading and Caching](references/image-loading-caching.md). For format conversion and compression, read [Image Formats and Compression](references/image-formats-compression.md).
 - For video playback, custom player UI, and AVPlayer integration, read [AV Playback Reference](references/av-playback.md).
+
+## iOS 27 Updates
+
+- `PHAssetResource.originalFilename` is incorrectly non-nullable. Use the new nullable `filename` property and handle `nil`.
+
+Sources: https://sosumi.ai/documentation/ios-ipados-release-notes/ios-ipados-27-release-notes
 
 ## Common Mistakes
 

@@ -19,6 +19,7 @@ Route physical goods and real-world services to `passkit`; full submission/priva
 - [Transaction updates and entitlements](#transaction-updates-and-entitlements)
 - [Subscriptions, restore, and recovery](#subscriptions-restore-and-recovery)
 - [Correction reviews](#correction-reviews)
+- [iOS 27 Updates](#ios-27-updates)
 - [Common mistakes](#common-mistakes)
 - [Review checklist](#review-checklist)
 
@@ -132,6 +133,17 @@ When reviewing flawed StoreKit code, name the broken contract:
 - Every win-back offer shown: filter raw offers by verified eligible IDs.
 - Legacy offer fields: use current `transaction.offer?.type` and `.id` APIs for the supported SDK.
 - Broad IAP/external-link claim: defer to current guideline, entitlement, region, and storefront evidence.
+
+## iOS 27 Updates
+
+- Offer code redemption APIs return a `VerificationResult` containing a `Transaction` on success, or an error describing the failure.
+- Volume purchases: `Transaction.OwnershipType.assigned` and `Transaction.RevocationType.assignmentRevoked`; queries also return transactions assigned to Managed Apple Accounts.
+- `Product.ProductType` adds subscription Bundles and Suites. `Product.SubscriptionInfo.BundledSubscription` exposes Bundle merchandising data; `Transaction` and `RenewalInfo` gain Bundle and Suite fields.
+- `partnerName` and `partnerId` added to `Transaction.AdvancedCommerceInfo` and `RenewalInfo.AdvancedCommerceInfo`.
+- StoreKit Testing in Xcode (27.2): intro offer eligibility now resets after `SKTestSession.clearTransactions()`, storefront changes propagate through `Storefront.updates`. Known issue: buying a subscription that belongs to a bundle wrongly allows unbundling instead of throwing.
+- Gate all of the above with `#available(iOS 27, *)`.
+
+Sources: https://sosumi.ai/documentation/ios-ipados-release-notes/ios-ipados-27-release-notes
 
 ## Common Mistakes
 

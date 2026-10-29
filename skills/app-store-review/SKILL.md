@@ -20,6 +20,7 @@ Catch App Store rejection risks before submission. Treat policy, SDK, privacy, e
 - [Submission Workflow](#submission-workflow)
 - [Metadata Best Practices](#metadata-best-practices)
 - [Appeal Process](#appeal-process)
+- [iOS 27 Updates](#ios-27-updates)
 - [Common Mistakes](#common-mistakes)
 - [Review Checklist](#review-checklist)
 - [References](#references)
@@ -179,6 +180,16 @@ Respond in App Store Connect's Resolution Center with a concise evidence trail:
 
 The Board's decision is final for that submission; modifying the app and
 resubmitting remains available.
+
+## iOS 27 Updates
+
+- Apps built with the 27.0 SDK must include a launch screen key (`UILaunchStoryboardName`, `UILaunchStoryboards`, `UILaunchScreen`, or `UILaunchScreens`) and must adopt the UIKit scene-based life cycle, or they fail to launch.
+- `canOpenURL:` is deprecated. Attempt to open the URL and handle failure; universal links remove the need for validation.
+- On Demand Resources and `NSBundleResourceRequest` are deprecated; migrate to Background Assets.
+- App Tracking Transparency (27.2): an alternative expanded prompt and yearly reprompting for EU users; the alternative prompt is required in France, Germany, Italy, Poland, and Romania. Pre-release names were fixed: `requestTrackingAuthorization(preferExpandedInterface:...)` and `requestTrackingAuthorizationPreferringExpandedInterface:...`.
+- Xcode 27 installs only on Apple silicon Macs and requires macOS Tahoe 26.6 or later. Apps using Hardware-Checked Pointer Arithmetic cannot be uploaded from macOS 26.6 with automatic signing; use macOS 27 with Xcode 27 or manual signing.
+
+Sources: https://sosumi.ai/documentation/ios-ipados-release-notes/ios-ipados-27-release-notes, https://sosumi.ai/documentation/xcode-release-notes/xcode-27-release-notes
 
 ## Common Mistakes
 

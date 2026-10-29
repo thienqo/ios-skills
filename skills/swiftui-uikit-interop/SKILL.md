@@ -14,6 +14,7 @@ Bridge UIKit and SwiftUI in both directions: wrap UIKit views and controllers fo
 - [State Synchronization and Feedback Loops](#state-synchronization-and-feedback-loops)
 - [Embedding SwiftUI in UIKit](#embedding-swiftui-in-uikit)
 - [Route by Task](#route-by-task)
+- [iOS 27 Updates](#ios-27-updates)
 - [Common Mistakes](#common-mistakes)
 - [Review Checklist](#review-checklist)
 - [References](#references)
@@ -64,6 +65,20 @@ Use `UIHostingConfiguration` for modern cell layouts in `UICollectionView`/`UITa
 - For `PHPickerViewController`, `MFMailComposeViewController`, `UIActivityViewController`, and search controllers, read [Picker, Mail, Share, and Search Wrappers](references/picker-mail-share-and-search-wrappers.md).
 - For `PDFView`, `QLPreviewController`, and `MFMessageComposeViewController`, read [PDF and Message Wrappers](references/pdf-and-message-wrappers.md).
 - For embedding SwiftUI in UIKit table/collection cells, navigation transitions, and full hosting migration, read [Hosting Migration](references/hosting-migration.md).
+
+## iOS 27 Updates
+
+- Apps built with the iOS 27 SDK must adopt the UIKit scene-based life cycle or they fail to launch.
+- Presented view controllers inherit trait collections by walking the superview chain, not from the presentation controller. Custom presentation controllers may need updates.
+- iOS 27.1+: `UIView` default layout margins are zero. View controllers still provide `systemMinimumLayoutMargins`; set `preservesSuperviewLayoutMargins` to `true` to inherit them.
+- Menus: `UIMenuElement.preferredImageVisibility` controls menu image visibility (images are hidden by default on iPadOS 27).
+- Bars: `UINavigationItem.navigationBarMinimization` replaces `barMinimizeBehavior` and `barMinimizationSafeAreaAdjustment`. `UIScrollEdgeElementContainerInteraction` contributes a container view to the scroll edge effect shape. `UISearchController` center placement shows the scope bar inline.
+- External displays: `UIViewController.registerSceneAccessory(_:)` with `UISceneAccessory.externalNonInteractive`.
+- Text: `NSTextTable` and related types are available to UIKit; `UITextAttachmentViewProviderReusePolicy` retains attachment views while scrolling.
+- Drag: avoid animations or modal UI in `dragInteraction(_:sessionWillBegin:)`; use `dragInteraction(_:sessionDidMove:)`.
+- Adaptive layout types `UIArrangementViewController`, `UIView.ReservedRegion`, and `UIHingeInteraction` appeared in the September 2026 UIKit updates; check their availability annotations before use.
+
+Sources: https://sosumi.ai/documentation/ios-ipados-release-notes/ios-ipados-27-release-notes, https://sosumi.ai/documentation/updates/uikit
 
 ## Common Mistakes
 

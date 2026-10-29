@@ -17,7 +17,7 @@ unless the user asks for implementation detail.
 
 ## Core Data + SwiftData Coexistence
 
-Apple's current coexistence sample is documented as iOS 27 / Xcode 27 beta.
+Apple's current coexistence sample is documented for iOS 27 / Xcode 27.
 Use it as source-grounded migration guidance, not as an unconditional iOS 26
 platform guarantee. For shipping work on earlier SDKs, verify the exact
 deployment target and test against copies of real stores.
@@ -116,7 +116,7 @@ struct MyApp: App {
 - **Do not write to the same entity from both stacks simultaneously.** Pick
   one stack per entity for writes to avoid conflicts.
 - Enable persistent history tracking on the Core Data side when using Apple's
-  beta coexistence pattern; SwiftData history can then detect relevant changes.
+  coexistence pattern; SwiftData history can then detect relevant changes.
 - Test thoroughly -- schema mismatches between the `.xcdatamodeld` and
   `@Model` cause crashes.
 
@@ -193,7 +193,7 @@ class Tag {
 | UUID | UUID |
 | URI | URL |
 | Decimal | Decimal |
-| Transformable | Compatible `Codable` value type; `Schema.CompositeAttribute` is iOS 17+, while `@Attribute(.codable)` is iOS 27 beta |
+| Transformable | Compatible `Codable` value type; `Schema.CompositeAttribute` is iOS 17+, while `@Attribute(.codable)` requires iOS 27 |
 | To-one relationship | Optional reference to `@Model` |
 | To-many relationship | Array of `@Model` |
 

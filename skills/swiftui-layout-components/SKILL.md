@@ -34,6 +34,7 @@ Inspect deployment target, Swift mode, and SDK before using versioned modifiers.
 | Adaptive two-dimensional collection | `LazyVGrid` or `LazyHGrid` |
 | Platform list behavior, sections, editing, swipe actions | `List` |
 | Structured settings or data entry | `Form` |
+| Drag-to-reorder in any stack, grid, or list (iOS 27) | `reorderable()` + `reorderContainer`; see [reorder-and-drag-containers](references/reorder-and-drag-containers.md) |
 | Custom geometry-based layout | `Layout` protocol or focused geometry APIs after standard containers are insufficient |
 
 Do not choose a container from row count alone. Consider editing behavior, selection, section semantics, separators, custom backgrounds, nested interaction, and whether cells need platform list behavior.
@@ -100,3 +101,4 @@ Route Liquid Glass scroll-edge styling to `swiftui-liquid-glass` and detailed an
 - [List and section patterns](references/list.md)
 - [ScrollView and lazy stack patterns](references/scrollview.md)
 - [Form patterns](references/form.md)
+- [Reorderable and drag containers, ArrangementView (iOS 27)](references/reorder-and-drag-containers.md)

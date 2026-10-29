@@ -1,6 +1,6 @@
 ---
 name: apple-on-device-ai
-description: "Designs private on-device AI for Apple platforms with Foundation Models, Core ML, MLX Swift, or llama.cpp. Use for local LLM runtime selection, Apple Intelligence chat or tool use, Apple Silicon inference, model conversion/compression, or backend comparison; route Core ML prediction code to coreml."
+description: "Designs private on-device AI for Apple platforms with Foundation Models (including iOS 27 LanguageModel providers, Private Cloud Compute, multimodal prompts, Dynamic Profiles), Core AI, Core ML, MLX Swift, or llama.cpp. Use for local LLM runtime selection, Apple Intelligence chat or tool use, Apple Silicon inference, model conversion/compression, or backend comparison; route Core ML prediction code to coreml."
 ---
 
 # On-Device AI for Apple Platforms
@@ -24,7 +24,8 @@ Architect and deploy private on-device machine learning and LLMs on Apple Silico
 
 | Framework | Best For | Pros | Constraints |
 |---|---|---|---|
-| **Apple Foundation Models** (iOS 26+) | Text generation, structured output, tool calling | Zero app download footprint, native system UI integration | Requires Apple Intelligence eligible device |
+| **Apple Foundation Models** (iOS 26+; iOS 27 adds images, Private Cloud Compute, custom `LanguageModel`) | Text generation, structured output, tool calling | Zero app download footprint, native system UI integration | Requires Apple Intelligence eligible device |
+| **Core AI** (iOS 27+) | Running your own models in Swift; LLMs through a Foundation Models session | Memory-safe Swift API, specialization cache, Neural Engine/GPU/CPU selection | iOS 27 only; background Neural Engine needs an entitlement |
 | **Core ML** | Computer vision, audio, classification, custom transformer models | Best Neural Engine offload, lowest power consumption | Fixed compute graph; slower autoregressive text generation |
 | **MLX Swift** | Custom open-weights LLMs/VLMs (Llama, Mistral, Gemma) | Full control over model architecture and generation parameters | Consumes user storage and unified RAM (high memory pressure) |
 | **llama.cpp** | Cross-platform C++ runtime, CPU fallback | Broadest quantization support (GGUF), battle-tested | Higher power usage than Neural Engine pipelines |
@@ -42,6 +43,8 @@ print(response.text)
 ```
 
 Use `@Generable` to extract structured data directly from model prompts.
+
+iOS 27 keeps the same `LanguageModelSession` API but lets you swap the model: `SystemLanguageModel`, `PrivateCloudComputeLanguageModel` (server model, managed entitlement, quota), `CoreAILanguageModel` (your own exported weights), or any custom `LanguageModel`. It also adds image `Attachment` prompts and `DynamicProfile` for switching model, tools, and instructions mid-session. Gate with `#available(iOS 27, *)`. Details: [Foundation Models in iOS 27](references/foundation-models-ios27.md).
 
 ## Core ML & Model Conversion
 
@@ -81,6 +84,7 @@ let output = try await model.generate(prompt: "Explain relativity in simple term
 
 ## Common Mistakes
 
+- **Using iOS 27 Foundation Models or Core AI types on an iOS 26 target without availability checks**: gate with `#available(iOS 27, *)` and keep the iOS 26 path.
 - **Bundling massive LLMs in app bundles**: Causes app review rejection or slow downloads. Use Background Assets or system Foundation Models.
 - **Ignoring device memory limits**: Loading a 4-bit 7B LLM requires >4GB RAM, risking immediate OOM termination on devices with 6GB or 8GB unified memory.
 - **Running autoregressive LLMs without KV-cache**: Re-evaluating the full token prompt at each step slows generation exponentially.
@@ -88,6 +92,7 @@ let output = try await model.generate(prompt: "Explain relativity in simple term
 
 ## Review Checklist
 
+- [ ] iOS 27-only APIs (PCC model, multimodal, Dynamic Profiles, Core AI) gated by availability, with fallback
 - [ ] Appropriate framework selected for latency, power, and storage constraints
 - [ ] System Foundation Models prioritized when Apple Intelligence features suffice
 - [ ] Memory footprint measured on the lowest supported physical device target
@@ -97,6 +102,8 @@ let output = try await model.generate(prompt: "Explain relativity in simple term
 ## References
 
 - [Foundation Models API](references/foundation-models.md) -- LanguageModelSession, `@Generable`, tool calling, prompt design
+- [Foundation Models in iOS 27](references/foundation-models-ios27.md) -- `LanguageModel` protocol, Private Cloud Compute, multimodal, Dynamic Profiles, Core AI in a session
+- [Core AI](references/core-ai.md) -- AIModel, InferenceFunction, NDArray, Neural Engine rules
 - [Core ML Conversion](references/coreml-conversion.md) -- Model conversion from PyTorch, TensorFlow, other frameworks
 - [Core ML Optimization](references/coreml-optimization.md) -- Quantization, palettization, pruning, performance tuning
 - [MLX Swift & llama.cpp](references/mlx-swift.md) -- MLX Swift patterns, llama.cpp integration, memory management
