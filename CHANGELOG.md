@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.4.1 - 2026-10-29
 
 - Add `release-npm.yml`: publish to npm with provenance, tag the merged commit, create a GitHub Release, and dispatch the Tessl publish when a PR merges a new `package.json` version.
 - Point `package.json` repository, homepage, and bugs URLs at `thienqo/ios-skills`, which npm provenance requires.
