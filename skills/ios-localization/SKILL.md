@@ -5,7 +5,7 @@ description: "Implement or review Apple-platform localization with String Catalo
 
 # iOS Localization & Internationalization
 
-Localize Apple-platform applications using String Catalogs (`.xcstrings`), compiler-generated symbols, locale-aware `FormatStyle`, and right-to-left (RTL) layout adaptation. Targets Swift 6.3 / iOS 26+.
+Localize Apple-platform applications using String Catalogs (`.xcstrings`), compiler-generated symbols, locale-aware `FormatStyle`, and right-to-left (RTL) layout adaptation. Targets Swift 6.4 / iOS 26+.
 
 ## Contents
 

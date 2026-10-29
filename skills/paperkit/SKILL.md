@@ -5,7 +5,7 @@ description: "Add drawings, shapes, and a consistent markup experience using Pap
 
 # PaperKit
 
-Combine freeform PencilKit drawings with structured markup elements (shapes, text boxes, images, connectors) using `PaperKit` (`PaperMarkupViewController`, `PaperMarkup`). Targets Swift 6.3 / iOS 26+.
+Combine freeform PencilKit drawings with structured markup elements (shapes, text boxes, images, connectors) using `PaperKit` (`PaperMarkupViewController`, `PaperMarkup`). Targets Swift 6.4 / iOS 26+.
 
 > **Beta-sensitive:** PaperKit is new in iOS/iPadOS 26, macOS 26, and visionOS 26. Verify availability guards and SDK versions before production release.
 

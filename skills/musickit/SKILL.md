@@ -5,7 +5,7 @@ description: "Integrate Apple Music catalog, playback, and personal library usin
 
 # MusicKit
 
-Access the Apple Music catalog, play tracks, query personal cloud libraries, and present subscription upsells using MusicKit. Targets Swift 6.3 / iOS 26+.
+Access the Apple Music catalog, play tracks, query personal cloud libraries, and present subscription upsells using MusicKit. Targets Swift 6.4 / iOS 26+.
 
 ## Contents
 

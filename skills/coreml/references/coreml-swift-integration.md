@@ -1,7 +1,7 @@
 # Core ML Swift Integration Reference
 
 Complete implementation patterns for loading, configuring, and running Core ML
-models in Swift. All patterns target iOS 26+ with Swift 6.3, backward-compatible
+models in Swift. All patterns target iOS 26+ with Swift 6.4, backward-compatible
 to iOS 14 unless noted.
 
 ## Contents

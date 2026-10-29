@@ -5,7 +5,7 @@ description: "Tokenize, tag, and analyze natural language text using Apple's Nat
 
 # NaturalLanguage + Translation
 
-Analyze natural language text for tokenization, part-of-speech tagging, named entity recognition, sentiment analysis, language identification, and embeddings using `NaturalLanguage`. Translate text with `Translation`. Targets Swift 6.3 / iOS 26+.
+Analyze natural language text for tokenization, part-of-speech tagging, named entity recognition, sentiment analysis, language identification, and embeddings using `NaturalLanguage`. Translate text with `Translation`. Targets Swift 6.4 / iOS 26+.
 
 ## Contents
 

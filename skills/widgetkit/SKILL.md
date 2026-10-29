@@ -5,7 +5,7 @@ description: "Builds or reviews WidgetKit widgets and controls for Home Screen, 
 
 # WidgetKit
 
-Build glanceable Home Screen widgets, Lock Screen complications, Control Center controls, and StandBy or CarPlay widgets using `WidgetKit`. Targets Swift 6.3 / iOS 26+.
+Build glanceable Home Screen widgets, Lock Screen complications, Control Center controls, and StandBy or CarPlay widgets using `WidgetKit`. Targets Swift 6.4 / iOS 26+.
 
 ## Contents
 

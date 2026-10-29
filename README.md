@@ -1,11 +1,13 @@
 # Swift iOS Skills Community
 
-[![Agent Skills](https://img.shields.io/badge/Agent%20Skills-94-2ea44f)](skills/)
-[![Swift](https://img.shields.io/badge/Swift-6.3-F05138?logo=swift&logoColor=white)](https://swift.org)
+[![Agent Skills](https://img.shields.io/badge/Agent%20Skills-95-2ea44f)](skills/)
+[![Swift](https://img.shields.io/badge/Swift-6.4-F05138?logo=swift&logoColor=white)](https://swift.org)
 [![Validation](https://github.com/thiennc-tesoglobal/ios-skills/actions/workflows/validate-repository.yml/badge.svg)](https://github.com/thiennc-tesoglobal/ios-skills/actions/workflows/validate-repository.yml)
 [![License](https://img.shields.io/badge/License-PolyForm%20Perimeter-blue)](LICENSE)
 
-**94 focused Agent Skills for modern Swift and Apple-platform development.**
+**95 focused Agent Skills for modern Swift and Apple-platform development.**
+
+Baseline: Xcode 27, Swift 6.4, and the iOS 27 SDK. Deployment floor stays iOS 26+; iOS 27-only APIs are gated with availability checks.
 
 The collection gives coding agents practical guidance for architecture,
 implementation, testing, performance, accessibility, security, Apple frameworks,
