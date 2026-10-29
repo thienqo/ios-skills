@@ -5,7 +5,7 @@ description: "Schedules and executes iOS background work with BGTaskScheduler an
 
 # Background Processing
 
-Register, schedule, and execute background tasks on iOS using BackgroundTasks (`BGTaskScheduler`), background `URLSession`, and background push notifications. Targets Swift 6.3 / iOS 26+.
+Register, schedule, and execute background tasks on iOS using BackgroundTasks (`BGTaskScheduler`), background `URLSession`, and background push notifications. Targets Swift 6.4 / iOS 26+.
 
 ## Contents
 

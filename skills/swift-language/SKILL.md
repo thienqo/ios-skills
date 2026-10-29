@@ -5,7 +5,7 @@ description: "Apply modern Swift language patterns to non-SwiftUI, non-concurren
 
 # Swift Language Patterns
 
-Apply modern Swift 6.3 syntax and idioms (Swift 6.4 / Xcode 27 additions: [references/swift-6-4.md](references/swift-6-4.md)) without altering behavior or evaluation order. Route concurrency to `swift-concurrency`, deep serialization to `swift-codable`, formatting to `swift-formatstyle`, naming to `swift-api-design-guidelines`, and SwiftUI state to `swiftui-patterns`.
+Apply modern Swift 6.4 syntax and idioms (Swift 6.4 / Xcode 27 additions: [references/swift-6-4.md](references/swift-6-4.md)) without altering behavior or evaluation order. Route concurrency to `swift-concurrency`, deep serialization to `swift-codable`, formatting to `swift-formatstyle`, naming to `swift-api-design-guidelines`, and SwiftUI state to `swiftui-patterns`.
 
 ## Contents
 
@@ -117,4 +117,4 @@ struct Clamped<T: Comparable> {
 
 - Extended patterns and Codable examples: [references/swift-patterns-extended.md](references/swift-patterns-extended.md)
 - Attributes and C interop: [references/swift-attributes-interop.md](references/swift-attributes-interop.md)
-- Swift 6.4 / Xcode 27 features (`anyAppleOS`, `@diagnose`, `Iterable`, `@c`): [references/swift-6-4.md](references/swift-6-4.md)
+- Swift 6.4 / Xcode 27 features (`anyAppleOS`, `@diagnose`, `Iterable`): [references/swift-6-4.md](references/swift-6-4.md)

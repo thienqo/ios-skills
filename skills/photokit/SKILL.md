@@ -5,7 +5,7 @@ description: "Builds or reviews photo-library picking, image loading, camera cap
 
 # PhotoKit
 
-Build media selection, camera capture, photo library queries, and image caching workflows with `PhotosUI` (`PhotosPicker`), `PhotoKit` (`PHPhotoLibrary`), and `AVFoundation`. Targets Swift 6.3 / iOS 26+.
+Build media selection, camera capture, photo library queries, and image caching workflows with `PhotosUI` (`PhotosPicker`), `PhotoKit` (`PHPhotoLibrary`), and `AVFoundation`. Targets Swift 6.4 / iOS 26+.
 
 ## Contents
 

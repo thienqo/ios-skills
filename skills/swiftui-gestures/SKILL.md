@@ -5,7 +5,7 @@ description: "Builds or reviews SwiftUI tap, press, drag, magnify, and rotate in
 
 # SwiftUI Gestures (iOS 26+)
 
-Review, write, and fix SwiftUI gesture interactions. Apply modern gesture APIs with correct composition, state management, and conflict resolution using Swift 6.3 patterns.
+Review, write, and fix SwiftUI gesture interactions. Apply modern gesture APIs with correct composition, state management, and conflict resolution using Swift 6.4 patterns.
 
 **Scope boundary:** This skill owns SwiftUI gesture recognition, composition, gesture state, and gesture-specific accessibility alternatives. Broader SwiftUI architecture/state ownership belongs in `swiftui-patterns`; list, scroll, form, and control layout belongs in `swiftui-layout-components`; broad UIKit bridging belongs in `swiftui-uikit-interop`.
 

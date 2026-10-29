@@ -2,7 +2,7 @@
 
 Complete implementation patterns for Vision framework requests covering text
 recognition, face detection, barcode scanning, segmentation, classification,
-and video processing. All patterns target iOS 26+ with Swift 6.3 unless noted.
+and video processing. All patterns target iOS 26+ with Swift 6.4 unless noted.
 
 ## Contents
 - Complete Text Recognition Pipeline

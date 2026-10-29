@@ -5,7 +5,7 @@ description: "Master serialization and deserialization in Swift with Codable. Us
 
 # Swift Codable
 
-Encode and decode Swift types with `Codable` (`Encodable` & `Decodable`). Covers custom keys, date/data strategies, polymorphic decoding, default values, and persistence compatibility. Targets Swift 6.3 / iOS 26+.
+Encode and decode Swift types with `Codable` (`Encodable` & `Decodable`). Covers custom keys, date/data strategies, polymorphic decoding, default values, and persistence compatibility. Targets Swift 6.4 / iOS 26+.
 
 ## Contents
 

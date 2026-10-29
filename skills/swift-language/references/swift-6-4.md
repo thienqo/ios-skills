@@ -50,15 +50,14 @@ Verify exact `@diagnose` group names and syntax against the compiler before comm
 - `Ref`, `MutableRef`: borrowed or mutable access to one value (for example, hoisting a dictionary lookup out of a loop).
 - `borrow` and `mutate` accessors: in-place read-only or exclusive access without copying.
 - `Equatable`, `Comparable`, `Hashable` work with noncopyable types; associated types may be noncopyable or non-escapable.
-- `@inline(always)` forces inlining; pair with `final` on class methods.
-- `@specialized(where:)` generates specialized versions of generic functions.
+- `@inline(always)` (SE-0496) and `@specialized(where:)` (SE-0460) are covered in [swift-attributes-interop.md](swift-attributes-interop.md); pair `@inline(always)` with `final` on class methods.
 - `withTemporaryAllocation` uses `OutputSpan`.
 
 Reach for these only after measuring. Default to ordinary value types and arrays.
 
 ## Interop
 
-- `@c` exposes a Swift function to C. `@implementation` implements a function already declared in a C header.
+- `@c` (SE-0495) exposes a Swift function to C and shipped in Swift 6.3; see [swift-attributes-interop.md](swift-attributes-interop.md). WWDC26 also shows `@implementation`, which implements a function already declared in a C header; verify its availability in the toolchain.
 - `Span` bridges to C, and C++20 `std::span` bridges to Swift `Span`.
 - Swift closures convert to `std::function`; `SWIFT_REFCOUNTED_PTR` bridges smart pointers to Swift classes.
 - Official Swift SDK for Android; Embedded Swift gains existentials and untyped throws.

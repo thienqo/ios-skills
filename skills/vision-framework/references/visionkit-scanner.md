@@ -3,7 +3,7 @@
 Complete implementation patterns for DataScannerViewController and
 VNDocumentCameraViewController covering availability checking, configuration,
 SwiftUI integration, delegate handling, custom overlays, and camera permissions.
-All patterns target iOS 26+ with Swift 6.3 unless noted.
+All patterns target iOS 26+ with Swift 6.4 unless noted.
 
 ## Contents
 - Camera Permission Setup
