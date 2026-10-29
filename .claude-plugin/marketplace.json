@@ -5,14 +5,14 @@
   },
   "metadata": {
     "description": "Community-maintained iOS and Swift development skills for complete app delivery",
-    "version": "1.4.0"
+    "version": "1.4.1"
   },
   "plugins": [
     {
       "name": "swiftui-skills",
       "source": "./",
       "description": "SwiftUI patterns, focus, navigation, gestures, layout, responsive adaptation, animation, Liquid Glass, WebKit, performance, and UIKit interop",
-      "version": "1.4.0",
+      "version": "1.4.1",
       "keywords": [
         "swiftui",
         "ios",
@@ -47,7 +47,7 @@
       "name": "swift-core-skills",
       "source": "./",
       "description": "Core Swift language features, concurrency, API design guidelines, testing, SwiftData, Core Data, Charts, Codable, FormatStyle, and architecture patterns",
-      "version": "1.4.0",
+      "version": "1.4.1",
       "keywords": [
         "swift",
         "concurrency",
@@ -80,7 +80,7 @@
       "name": "ios-app-framework-skills",
       "source": "./",
       "description": "App experience frameworks: widgets, Live Activities, App Intents, StoreKit, push notifications, maps, media, video, PDF, CarPlay, ads",
-      "version": "1.4.0",
+      "version": "1.4.1",
       "keywords": [
         "ios",
         "widgetkit",
@@ -126,7 +126,7 @@
       "name": "ios-data-framework-skills",
       "source": "./",
       "description": "Data and service frameworks: CloudKit, HealthKit, EventKit, Contacts, MusicKit, PassKit, WeatherKit, FinanceKit",
-      "version": "1.4.0",
+      "version": "1.4.1",
       "keywords": [
         "ios",
         "cloudkit",
@@ -157,7 +157,7 @@
       "name": "ios-ai-ml-skills",
       "source": "./",
       "description": "AI and machine learning: Foundation Models, Core ML, Vision, NaturalLanguage, Speech Recognition",
-      "version": "1.4.0",
+      "version": "1.4.1",
       "keywords": [
         "ios",
         "ai",
@@ -184,7 +184,7 @@
       "name": "ios-engineering-skills",
       "source": "./",
       "description": "iOS engineering: end-to-end app delivery, code review, networking, security, accessibility, debugging, diagnostics, linting, and App Store optimization",
-      "version": "1.4.0",
+      "version": "1.4.1",
       "keywords": [
         "ios",
         "app-workflow",
@@ -235,7 +235,7 @@
       "name": "ios-hardware-skills",
       "source": "./",
       "description": "Hardware and device integration: Bluetooth, NFC, motion sensors, custom haptics, Apple Pencil, AR/RealityKit, accessory setup, camera docks, research sensors",
-      "version": "1.4.0",
+      "version": "1.4.1",
       "keywords": [
         "ios",
         "bluetooth",
@@ -271,7 +271,7 @@
       "name": "ios-platform-skills",
       "source": "./",
       "description": "Specialized platform integrations: HomeKit, SharePlay, CallKit, PermissionKit, EnergyKit, AppMigrationKit, BrowserEngineKit, AudioAccessoryKit, CryptoTokenKit, RelevanceKit",
-      "version": "1.4.0",
+      "version": "1.4.1",
       "keywords": [
         "ios",
         "homekit",
@@ -309,7 +309,7 @@
       "name": "ios-gaming-skills",
       "source": "./",
       "description": "Game development frameworks: GameKit, SpriteKit, SceneKit, TabletopKit",
-      "version": "1.4.0",
+      "version": "1.4.1",
       "keywords": [
         "ios",
         "gamekit",
@@ -335,7 +335,7 @@
       "name": "apple-kit-skills",
       "source": "./",
       "description": "40 skills spanning Apple Kit frameworks from AccessorySetupKit to WidgetKit, plus CarPlay",
-      "version": "1.4.0",
+      "version": "1.4.1",
       "keywords": [
         "ios",
         "apple",
@@ -417,7 +417,7 @@
       "name": "all-ios-skills",
       "source": "./",
       "description": "All 90 iOS and Swift development skills in one plugin",
-      "version": "1.4.0",
+      "version": "1.4.1",
       "keywords": [
         "swift",
         "ios",
