@@ -81,3 +81,13 @@ Resolve validation errors before opening a pull request. Advisory size warnings 
 - [ ] The pull request explains what changed and how it was verified.
 
 By contributing, you agree that your contribution is distributed under the repository's [PolyForm Perimeter License 1.0.0](LICENSE).
+
+## Releasing
+
+Releases are automated by `.github/workflows/release-npm.yml`.
+
+1. In a PR, bump the version in `package.json`, `package-lock.json`, `.claude-plugin/marketplace.json`, `.tessl-plugin/plugin.json`, and `EXPECTED_VERSION` in `.github/scripts/validate_repository.py`. Add a `## <version> - <date>` section to `CHANGELOG.md`.
+2. Merge the PR into `main`.
+3. The workflow publishes the version to npm with provenance if that version is not already published, tags the merged commit as `v<version>`, creates a GitHub Release from the CHANGELOG section, and dispatches the Tessl plugin publish.
+
+Do not create release tags by hand. One-time setup: add a Trusted Publisher for `@thiennc/ios-skills` on npmjs.com (repository `thienqo/ios-skills`, workflow `release-npm.yml`).
