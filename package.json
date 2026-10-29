@@ -27,11 +27,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thiennc-tesoglobal/ios-skills.git"
+    "url": "git+https://github.com/thienqo/ios-skills.git"
   },
-  "homepage": "https://github.com/thiennc-tesoglobal/ios-skills#readme",
+  "homepage": "https://github.com/thienqo/ios-skills#readme",
   "bugs": {
-    "url": "https://github.com/thiennc-tesoglobal/ios-skills/issues"
+    "url": "https://github.com/thienqo/ios-skills/issues"
   },
   "keywords": [
     "agent-skills",
