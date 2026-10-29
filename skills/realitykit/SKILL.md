@@ -5,7 +5,7 @@ description: "Build iOS augmented reality and 3D experiences with RealityKit and
 
 # RealityKit
 
-Create augmented reality and 3D experiences on iOS using RealityKit for rendering and ARKit for world tracking and scene understanding. Targets Swift 6.3 / iOS 26+.
+Create augmented reality and 3D experiences on iOS using RealityKit for rendering and ARKit for world tracking and scene understanding. Targets Swift 6.4 / iOS 26+.
 
 ## Contents
 

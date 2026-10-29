@@ -5,7 +5,7 @@ description: "Builds sensor workflows with Core Motion for accelerometer, gyrosc
 
 # CoreMotion
 
-Access accelerometer, gyroscope, attitude/device motion, pedometer, altitude, and specialized sensors using Core Motion. Targets Swift 6.3 / iOS 26+.
+Access accelerometer, gyroscope, attitude/device motion, pedometer, altitude, and specialized sensors using Core Motion. Targets Swift 6.4 / iOS 26+.
 
 ## Contents
 

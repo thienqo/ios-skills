@@ -2,7 +2,7 @@
 
 Complete implementation patterns for TipKit including custom styles, event-based
 rules, tip groups, testing strategies, onboarding flows, and SwiftUI previews.
-Examples target iOS 17+ with Swift 6.3 conventions unless a section explicitly
+Examples target iOS 17+ with Swift 6.4 conventions unless a section explicitly
 calls out a newer availability requirement.
 
 ## Availability Notes

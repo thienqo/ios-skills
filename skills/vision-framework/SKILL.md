@@ -5,7 +5,7 @@ description: "Builds or reviews iOS computer-vision features with Vision and Vis
 
 # Vision Framework
 
-Detect text, faces, barcodes, objects, contours, and poses in images and live video using Apple's on-device computer vision frameworks (`Vision` and `VisionKit`). Targets Swift 6.3 / iOS 26+.
+Detect text, faces, barcodes, objects, contours, and poses in images and live video using Apple's on-device computer vision frameworks (`Vision` and `VisionKit`). Targets Swift 6.4 / iOS 26+.
 
 ## Contents
 

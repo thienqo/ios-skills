@@ -1,6 +1,13 @@
 # Changelog
 
-## Unreleased
+## 1.4.0 - 2026-10-29
+
+### Baseline
+
+- Move the baseline to Xcode 27, Swift 6.4, and the iOS 27 SDK. The deployment floor stays iOS and iPadOS 26+; iOS 27-only APIs stay behind availability checks.
+- Update 38 skill and reference files from "Swift 6.3" to "Swift 6.4" where they state the target toolchain. Version-gated features keep their original Swift and Xcode minimums.
+- Make the Xcode 27 compile-fixture lane required and relabel the Xcode 26.6 lane as iOS 26 compatibility.
+- Align the README badges and counts (95 skills, Swift 6.4).
 
 ### iOS 27 / Xcode 27 / Swift 6.4
 

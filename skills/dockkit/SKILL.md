@@ -10,7 +10,7 @@ physically track subjects by rotating the iPhone. DockKit handles motor
 control, subject detection, and framing so camera apps get 360-degree pan
 and 90-degree tilt tracking with no additional code. Apps can override
 system tracking to supply custom observations, control motors directly,
-or adjust framing. iOS 17+, Swift 6.3.
+or adjust framing. iOS 17+, Swift 6.4.
 
 ## Contents
 

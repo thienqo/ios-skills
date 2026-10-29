@@ -5,7 +5,7 @@ description: "Build direct Bluetooth Low Energy central or peripheral workflows 
 
 # Core Bluetooth
 
-Implement Bluetooth Low Energy (BLE) communication on iOS using `CBCentralManager` (connecting to accessories) and `CBPeripheralManager` (advertising as an accessory). Targets Swift 6.3 / iOS 26+.
+Implement Bluetooth Low Energy (BLE) communication on iOS using `CBCentralManager` (connecting to accessories) and `CBPeripheralManager` (advertising as an accessory). Targets Swift 6.4 / iOS 26+.
 
 ## Contents
 

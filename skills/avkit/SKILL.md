@@ -7,7 +7,7 @@ description: "Create media playback experiences using AVKit. Use when adding vid
 
 High-level media playback UI built on AVFoundation. Provides system-standard
 video players, Picture-in-Picture, AirPlay routing, transport controls, and
-subtitle/caption display. Targets Swift 6.3 / iOS 26+.
+subtitle/caption display. Targets Swift 6.4 / iOS 26+.
 
 ## Contents
 

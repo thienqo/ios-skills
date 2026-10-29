@@ -5,7 +5,7 @@ description: "Query grid electricity forecasts and submit load events using Ener
 
 # EnergyKit
 
-Query electricity cleanliness and cost forecasts and report device load telemetry using EnergyKit to help users shift power consumption to cleaner or cheaper grid periods. Targets Swift 6.3 / iOS 26+.
+Query electricity cleanliness and cost forecasts and report device load telemetry using EnergyKit to help users shift power consumption to cleaner or cheaper grid periods. Targets Swift 6.4 / iOS 26+.
 
 > **Beta-sensitive:** Core EnergyKit APIs require iOS/iPadOS 26.0+. iOS/iPadOS 27+ APIs (`ElectricalLoadDevice`, Home app LoadEvents integration) are beta-sensitive.
 

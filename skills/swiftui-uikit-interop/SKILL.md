@@ -5,7 +5,7 @@ description: "Bridges UIKit and SwiftUI with representables, hosting controllers
 
 # SwiftUI-UIKit Interop
 
-Bridge UIKit and SwiftUI in both directions: wrap UIKit views and controllers for use in SwiftUI, embed SwiftUI views into existing UIKit view hierarchies, and coordinate state updates safely. Targets Swift 6.3 / iOS 26+.
+Bridge UIKit and SwiftUI in both directions: wrap UIKit views and controllers for use in SwiftUI, embed SwiftUI views into existing UIKit view hierarchies, and coordinate state updates safely. Targets Swift 6.4 / iOS 26+.
 
 ## Contents
 

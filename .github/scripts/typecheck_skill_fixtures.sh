@@ -6,8 +6,8 @@ usage() {
 Usage: typecheck_skill_fixtures.sh stable|beta
 
 Type-checks Apple framework fixtures against the selected Xcode lane.
-  stable  Requires Xcode 26.6 and compiles the iOS 26 fixtures.
-  beta    Requires Xcode 27.x and compiles stable plus iOS 27 fixtures.
+  stable  Requires Xcode 26.6 and compiles the iOS 26 compatibility fixtures.
+  beta    Requires Xcode 27.x and compiles stable plus iOS 27 fixtures (the current baseline).
 EOF
 }
 

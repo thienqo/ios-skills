@@ -6,7 +6,7 @@ description: "Builds custom tactile and synchronized audio-haptic experiences wi
 # Core Haptics
 
 Compose, play, and verify custom haptic patterns with `CoreHaptics`. Scope:
-Swift 6.3, iOS 26+, and supported physical hardware.
+Swift 6.4, iOS 26+, and supported physical hardware.
 
 ## Contents
 

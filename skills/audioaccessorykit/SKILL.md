@@ -5,7 +5,7 @@ description: "Integrate third-party audio accessories with Apple audio switching
 
 # AudioAccessoryKit
 
-Participate in Apple's seamless audio ecosystem, automatic audio routing, and head/ear placement detection for third-party audio accessories. Targets Swift 6.3 / iOS 26+.
+Participate in Apple's seamless audio ecosystem, automatic audio routing, and head/ear placement detection for third-party audio accessories. Targets Swift 6.4 / iOS 26+.
 
 > **Prerequisite:** Audio accessories must be paired and authorized via `AccessorySetupKit` before configuring with `AudioAccessoryKit`.
 

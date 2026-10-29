@@ -5,7 +5,7 @@ description: "Builds iOS authentication with AuthenticationServices and LocalAut
 
 # Authentication
 
-Implement authentication flows on iOS using AuthenticationServices and LocalAuthentication, including Sign in with Apple, passkeys (WebAuthn), OAuth web sessions, Password AutoFill, and biometric verification. Targets Swift 6.3 / iOS 26+.
+Implement authentication flows on iOS using AuthenticationServices and LocalAuthentication, including Sign in with Apple, passkeys (WebAuthn), OAuth web sessions, Password AutoFill, and biometric verification. Targets Swift 6.4 / iOS 26+.
 
 ## Contents
 

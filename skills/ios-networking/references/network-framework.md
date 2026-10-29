@@ -3,7 +3,7 @@
 Low-level networking with the Network framework. Use when you need TCP/UDP
 connections, WebSockets, Bonjour service discovery, local servers, or network
 path monitoring beyond what URLSession provides. All examples target
-Swift 6.3 / iOS 26+.
+Swift 6.4 / iOS 26+.
 
 ## Contents
 
