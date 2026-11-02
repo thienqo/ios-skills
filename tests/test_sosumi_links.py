@@ -60,7 +60,7 @@ class SosumiLinkTests(unittest.TestCase):
 
     def test_permanent_http_errors_are_not_retried(self) -> None:
         url = "https://sosumi.ai/documentation/example"
-        for status in (403, 404, 410):
+        for status in (403, 410):
             with self.subTest(status=status):
                 error = urllib.error.HTTPError(url, status, "error", {}, io.BytesIO())
                 with patch.object(
@@ -71,6 +71,34 @@ class SosumiLinkTests(unittest.TestCase):
                     )
                 fetch.assert_called_once()
                 sleep.assert_not_called()
+
+    def test_not_found_on_both_sosumi_and_apple_fails(self) -> None:
+        url = "https://sosumi.ai/videos/play/wwdc2024/10060"
+        errors = [
+            urllib.error.HTTPError(url, 404, "error", {}, io.BytesIO())
+            for _ in range(2)
+        ]
+        with patch.object(
+            CHECKER_MODULE.urllib.request, "urlopen", side_effect=errors
+        ) as fetch, patch.object(CHECKER_MODULE.time, "sleep") as sleep:
+            self.assertEqual(CHECKER_MODULE.check_url(url, 20), (url, "HTTP 404"))
+        self.assertEqual(
+            [call.args[0].full_url for call in fetch.call_args_list],
+            [url, "https://developer.apple.com/videos/play/wwdc2024/10060"],
+        )
+        sleep.assert_not_called()
+
+    def test_sosumi_not_found_passes_when_apple_serves_page(self) -> None:
+        url = "https://sosumi.ai/videos/play/wwdc2024/10060"
+        response = MagicMock()
+        response.__enter__.return_value.status = 200
+        error = urllib.error.HTTPError(url, 404, "error", {}, io.BytesIO())
+        with patch.object(
+            CHECKER_MODULE.urllib.request, "urlopen", side_effect=[error, response]
+        ) as fetch, patch("sys.stdout", new_callable=io.StringIO) as stdout:
+            self.assertEqual(CHECKER_MODULE.check_url(url, 20), (url, None))
+        self.assertEqual(fetch.call_count, 2)
+        self.assertIn("::warning::", stdout.getvalue())
 
     def test_transient_failures_recover_on_retry(self) -> None:
         url = "https://sosumi.ai/documentation/example"
@@ -113,13 +141,13 @@ class SosumiLinkTests(unittest.TestCase):
         url = "https://sosumi.ai/documentation/example"
         errors = [
             urllib.error.HTTPError(url, status, "error", {}, io.BytesIO())
-            for status in (503, 404)
+            for status in (503, 404, 404)
         ]
         with patch.object(
             CHECKER_MODULE.urllib.request, "urlopen", side_effect=errors
         ) as fetch, patch.object(CHECKER_MODULE.time, "sleep") as sleep:
             self.assertEqual(CHECKER_MODULE.check_url(url, 20), (url, "HTTP 404"))
-        self.assertEqual(fetch.call_count, 2)
+        self.assertEqual(fetch.call_count, 3)
         sleep.assert_called_once_with(2)
 
 
