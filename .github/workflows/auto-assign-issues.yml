@@ -11,7 +11,7 @@ jobs:
   assign:
     runs-on: ubuntu-latest
     steps:
-      - run: gh issue edit "$ISSUE_URL" --add-assignee thiennc-tesoglobal
+      - run: gh issue edit "$ISSUE_URL" --add-assignee thienqo
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_URL: ${{ github.event.issue.html_url }}

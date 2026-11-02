@@ -2,7 +2,7 @@
 
 [![Agent Skills](https://img.shields.io/badge/Agent%20Skills-95-2ea44f)](skills/)
 [![Swift](https://img.shields.io/badge/Swift-6.4-F05138?logo=swift&logoColor=white)](https://swift.org)
-[![Validation](https://github.com/thiennc-tesoglobal/ios-skills/actions/workflows/validate-repository.yml/badge.svg)](https://github.com/thiennc-tesoglobal/ios-skills/actions/workflows/validate-repository.yml)
+[![Validation](https://github.com/thienqo/ios-skills/actions/workflows/validate-repository.yml/badge.svg)](https://github.com/thienqo/ios-skills/actions/workflows/validate-repository.yml)
 [![License](https://img.shields.io/badge/License-PolyForm%20Perimeter-blue)](LICENSE)
 
 **95 focused Agent Skills for modern Swift and Apple-platform development.**
@@ -47,13 +47,13 @@ npx @thiennc/ios-skills --all
 Direct GitHub installation:
 
 ```sh
-npx skills add thiennc-tesoglobal/ios-skills
+npx skills add thienqo/ios-skills
 ```
 
 ### Claude Code
 
 ```sh
-/plugin marketplace add thiennc-tesoglobal/ios-skills
+/plugin marketplace add thienqo/ios-skills
 /plugin install all-ios-skills@ios-skills
 ```
 

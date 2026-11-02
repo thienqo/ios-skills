@@ -2,7 +2,7 @@
 
 Thank you for helping improve the collection. Contributions should solve a concrete agent behavior problem and remain focused enough to review, test, and maintain.
 
-Use [Issues](https://github.com/thiennc-tesoglobal/ios-skills/issues) for bugs and focused proposals. Use [Discussions](https://github.com/thiennc-tesoglobal/ios-skills/discussions) for broader ideas or roadmap conversations.
+Use [Issues](https://github.com/thienqo/ios-skills/issues) for bugs and focused proposals. Use [Discussions](https://github.com/thienqo/ios-skills/discussions) for broader ideas or roadmap conversations.
 
 ## Before you start
 

@@ -3,7 +3,7 @@
   "version": "1.4.1",
   "description": "Community-maintained Agent Skills for complete Swift and Apple-platform app delivery.",
   "private": false,
-  "repository": "https://github.com/thiennc-tesoglobal/ios-skills",
+  "repository": "https://github.com/thienqo/ios-skills",
   "skills": [
     "skills/accessorysetupkit",
     "skills/activitykit",

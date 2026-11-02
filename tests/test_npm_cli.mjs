@@ -23,7 +23,7 @@ function outputCollector() {
 test("pins installs to the GitHub tag matching the npm version", () => {
   assert.equal(
     skillsSource,
-    `https://github.com/thiennc-tesoglobal/ios-skills#v${packageVersion}`,
+    `https://github.com/thienqo/ios-skills#v${packageVersion}`,
   );
   assert.deepEqual(installerArguments(["--skill", "ios-app-workflow"]), [
     "add",
