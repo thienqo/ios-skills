@@ -20,6 +20,10 @@ TRAILING_PUNCTUATION = ".,;:!?"
 # Two retries absorb brief outages without repeatedly requesting broken links.
 MAX_ATTEMPTS = 3
 RETRYABLE_HTTP_STATUSES = {408, 429, 500, 502, 503, 504}
+SOSUMI_ORIGIN = "https://sosumi.ai"
+# Sosumi mirrors developer.apple.com and sometimes returns HTTP 404 for a page
+# Apple still serves. Apple is the source of truth for whether a link is broken.
+APPLE_ORIGIN = "https://developer.apple.com"
 
 
 def normalize_url(raw_url: str) -> str:
@@ -39,7 +43,8 @@ def discover_sosumi_links(root: Path = SKILLS_DIR) -> dict[str, list[Path]]:
     return links
 
 
-def check_url(url: str, timeout: float) -> tuple[str, str | None]:
+def fetch(url: str, timeout: float) -> tuple[str | None, str]:
+    """Return (None, final URL) when the URL loads, else (error message, URL)."""
     request = urllib.request.Request(
         url,
         headers={"User-Agent": "ios-skills-link-checker/1.0"},
@@ -48,8 +53,9 @@ def check_url(url: str, timeout: float) -> tuple[str, str | None]:
         try:
             with urllib.request.urlopen(request, timeout=timeout) as response:
                 status = response.status
+                final_url = response.geturl() or url
             if status < 400:
-                return url, None
+                return None, final_url
             message = f"HTTP {status}"
             retryable = status in RETRYABLE_HTTP_STATUSES
         except urllib.error.HTTPError as error:
@@ -60,7 +66,7 @@ def check_url(url: str, timeout: float) -> tuple[str, str | None]:
             message = str(error)
             retryable = True
         if not retryable or attempt == MAX_ATTEMPTS - 1:
-            return url, message
+            return message, url
         delay = 2 ** (attempt + 1)
         print(
             f"Retrying {url} after {message} in {delay}s "
@@ -68,6 +74,36 @@ def check_url(url: str, timeout: float) -> tuple[str, str | None]:
             file=sys.stderr,
         )
         time.sleep(delay)
+    raise AssertionError("unreachable")
+
+
+def apple_url_for(url: str) -> str:
+    return APPLE_ORIGIN + url[len(SOSUMI_ORIGIN):]
+
+
+def same_page(requested: str, final: str) -> bool:
+    return requested.rstrip("/") == final.rstrip("/")
+
+
+def apple_serves(url: str, timeout: float) -> bool:
+    # Apple answers HTTP 200 for missing WWDC sessions by redirecting to the
+    # event index, so a redirect to a different path counts as missing.
+    apple_url = apple_url_for(url)
+    error, final_url = fetch(apple_url, timeout)
+    return error is None and same_page(apple_url, final_url)
+
+
+def check_url(url: str, timeout: float) -> tuple[str, str | None]:
+    error, _ = fetch(url, timeout)
+    if error != "HTTP 404":
+        return url, error
+    if apple_serves(url, timeout):
+        # GitHub Actions reads workflow commands from stdout.
+        print(
+            f"::warning::Sosumi returned HTTP 404 but Apple serves the page: {url}"
+        )
+        return url, None
+    return url, error
 
 
 def main() -> int:
