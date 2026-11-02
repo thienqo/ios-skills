@@ -92,6 +92,9 @@ class SosumiLinkTests(unittest.TestCase):
         url = "https://sosumi.ai/videos/play/wwdc2024/10060"
         response = MagicMock()
         response.__enter__.return_value.status = 200
+        response.__enter__.return_value.geturl.return_value = (
+            "https://developer.apple.com/videos/play/wwdc2024/10060/"
+        )
         error = urllib.error.HTTPError(url, 404, "error", {}, io.BytesIO())
         with patch.object(
             CHECKER_MODULE.urllib.request, "urlopen", side_effect=[error, response]
@@ -99,6 +102,19 @@ class SosumiLinkTests(unittest.TestCase):
             self.assertEqual(CHECKER_MODULE.check_url(url, 20), (url, None))
         self.assertEqual(fetch.call_count, 2)
         self.assertIn("::warning::", stdout.getvalue())
+
+    def test_apple_redirect_to_event_index_counts_as_missing(self) -> None:
+        url = "https://sosumi.ai/videos/play/wwdc2024/99999"
+        response = MagicMock()
+        response.__enter__.return_value.status = 200
+        response.__enter__.return_value.geturl.return_value = (
+            "https://developer.apple.com/videos/wwdc2024/"
+        )
+        error = urllib.error.HTTPError(url, 404, "error", {}, io.BytesIO())
+        with patch.object(
+            CHECKER_MODULE.urllib.request, "urlopen", side_effect=[error, response]
+        ):
+            self.assertEqual(CHECKER_MODULE.check_url(url, 20), (url, "HTTP 404"))
 
     def test_transient_failures_recover_on_retry(self) -> None:
         url = "https://sosumi.ai/documentation/example"
