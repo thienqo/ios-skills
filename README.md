@@ -22,6 +22,11 @@ servers, agents, or background processes, and it collects no data.
 - **Documentation links.** Skills link to Apple documentation through
   `sosumi.ai`, which serves it as Markdown, and to a few `developer.apple.com`
   pages. Claude may open these links when it needs more detail.
+- **Third-party tools.** Some skills describe installing or using tools such as
+  Homebrew packages. Those tools contact their own services if you choose to
+  install or run them.
+
+See `PRIVACY.md` for the privacy policy.
 
 ## Source and license
 
