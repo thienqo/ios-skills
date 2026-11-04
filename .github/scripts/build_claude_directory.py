@@ -30,7 +30,7 @@ ROOT = Path(__file__).resolve().parents[2]
 
 # Permanent once published: users install and configure the plugin by this name.
 PLUGIN_NAME = "thienqo-ios-skills"
-DISPLAY_NAME = "thienqo iOS Skills"
+DISPLAY_NAME = "thienqo-ios"
 REPOSITORY = "https://github.com/thienqo/ios-skills"
 
 MAX_FILES = 512
