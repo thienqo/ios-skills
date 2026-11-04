@@ -1,0 +1,20 @@
+{
+  "name": "thienqo-ios-skills",
+  "displayName": "Thienqo iOS Skills",
+  "version": "1.4.1",
+  "description": "95 skills for Swift, SwiftUI, and Apple-platform development, built for Xcode 27, Swift 6.4, and the iOS 27 SDK.",
+  "author": {
+    "name": "Thien Ngo",
+    "url": "https://github.com/thienqo"
+  },
+  "homepage": "https://github.com/thienqo/ios-skills",
+  "repository": "https://github.com/thienqo/ios-skills",
+  "supportUrl": "https://github.com/thienqo/ios-skills/issues",
+  "keywords": [
+    "ios",
+    "swift",
+    "swiftui",
+    "xcode",
+    "apple"
+  ]
+}
