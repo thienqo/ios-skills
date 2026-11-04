@@ -1,4 +1,4 @@
-# thienqo iOS Skills
+# thienqo-ios
 
 95 Agent Skills for Swift, SwiftUI, and Apple-platform development, built
 against Xcode 27, Swift 6.4, and the iOS 27 SDK, with a deployment floor of iOS
