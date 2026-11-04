@@ -1,0 +1,35 @@
+name: Build Claude Directory Plugin
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "skills/**"
+      - "LICENSE"
+      - "package.json"
+      - ".github/scripts/build_claude_directory.py"
+      - ".github/claude-directory/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-claude-directory
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Update claude-directory branch
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Commit the plugin folder to the branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          python3 .github/scripts/build_claude_directory.py --branch claude-directory
+      - name: Push the branch
+        run: git push origin refs/heads/claude-directory:refs/heads/claude-directory
