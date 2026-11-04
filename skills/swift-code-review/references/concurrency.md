@@ -1,7 +1,5 @@
 # Swift Concurrency Review Checks
 
-> Adapted and rewritten for this collection; see [../NOTICE.md](../NOTICE.md).
-
 Review the dependency graph and lifetime, not just the presence of `async`.
 Swift actors are reentrant at suspension points, and a task's ownership is part
 of its correctness.

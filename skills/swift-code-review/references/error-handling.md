@@ -1,7 +1,5 @@
 # Swift Error-Handling Review Checks
 
-> Adapted and rewritten for this collection; see [../NOTICE.md](../NOTICE.md).
-
 Follow the error to its handling boundary. A throwing function does not need a
 local `do/catch` when a caller intentionally propagates it, and a `try?` is not a
 bug when collapsing a failure is part of the contract.

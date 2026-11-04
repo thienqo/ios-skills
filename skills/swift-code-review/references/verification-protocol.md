@@ -1,7 +1,5 @@
 # Review Verification Protocol
 
-> Adapted and rewritten for this collection; see [../NOTICE.md](../NOTICE.md).
-
 Use this protocol before retaining any finding. It is intentionally short enough
 to apply to every issue and strict enough to prevent plausible but unverified
 claims.
