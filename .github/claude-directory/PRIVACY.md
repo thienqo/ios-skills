@@ -2,7 +2,7 @@
 
 Effective date: November 4, 2026
 
-This policy covers the Thienqo iOS Skills plugin, published by Thien Ngo from
+This policy covers the thienqo iOS Skills plugin, published by Thien Ngo from
 <https://github.com/thienqo/ios-skills>.
 
 ## Summary
