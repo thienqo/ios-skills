@@ -32,7 +32,13 @@ class ClaudeDirectoryBuildTests(unittest.TestCase):
 
     def test_root_holds_only_the_plugin(self) -> None:
         entries = {path.name for path in self.out.iterdir()}
-        self.assertEqual(entries, {".claude-plugin", "LICENSE", "README.md", "skills"})
+        self.assertEqual(
+            entries, {".claude-plugin", "LICENSE", "PRIVACY.md", "README.md", "skills"}
+        )
+
+    def test_privacy_policy_url_points_at_the_built_file(self) -> None:
+        manifest = json.loads((self.out / ".claude-plugin" / "plugin.json").read_text())
+        self.assertTrue(manifest["privacyPolicyUrl"].endswith("/blob/claude-directory/PRIVACY.md"))
 
     def test_icon_is_at_the_default_listing_path(self) -> None:
         icon = (self.out / ".claude-plugin" / "icon.png").read_bytes()

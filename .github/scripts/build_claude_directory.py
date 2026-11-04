@@ -45,6 +45,9 @@ ICON_PATH = ".claude-plugin/icon.png"
 MAX_ICON_BYTES = 2 * 1024 * 1024
 ICON_SIDE_RANGE = range(512, 2049)
 
+PRIVACY_SOURCE = ROOT / ".github" / "claude-directory" / "PRIVACY.md"
+PRIVACY_URL = f"{REPOSITORY}/blob/claude-directory/PRIVACY.md"
+
 README = """\
 # {display_name}
 
@@ -70,6 +73,11 @@ servers, agents, or background processes, and it collects no data.
 - **Documentation links.** Skills link to Apple documentation through
   `sosumi.ai`, which serves it as Markdown, and to a few `developer.apple.com`
   pages. Claude may open these links when it needs more detail.
+- **Third-party tools.** Some skills describe installing or using tools such as
+  Homebrew packages. Those tools contact their own services if you choose to
+  install or run them.
+
+See `PRIVACY.md` for the privacy policy.
 
 ## Source and license
 
@@ -115,6 +123,7 @@ def manifest(version: str, skill_count: int) -> dict[str, object]:
         "homepage": REPOSITORY,
         "repository": REPOSITORY,
         "supportUrl": f"{REPOSITORY}/issues",
+        "privacyPolicyUrl": PRIVACY_URL,
         "keywords": ["ios", "swift", "swiftui", "xcode", "apple"],
     }
 
@@ -129,6 +138,7 @@ def build(out: Path) -> None:
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(ROOT / relative, target)
     shutil.copyfile(ROOT / "LICENSE", out / "LICENSE")
+    shutil.copyfile(PRIVACY_SOURCE, out / "PRIVACY.md")
 
     (out / ".claude-plugin").mkdir()
     shutil.copyfile(ICON_SOURCE, out / ICON_PATH)
