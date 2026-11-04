@@ -6,7 +6,7 @@ license: Apache-2.0
 
 # Swift Code Review
 
-> Adapted and rewritten for this collection; see [NOTICE.md](NOTICE.md) and [LICENSE-APACHE-2.0.txt](LICENSE-APACHE-2.0.txt).
+License: [Apache-2.0](LICENSE-APACHE-2.0.txt). See [NOTICE.md](NOTICE.md) for scope.
 
 Review code as an evidence-backed diff review, not as a style sweep. Report only
 issues that can change correctness, safety, user-visible behavior, or maintenance

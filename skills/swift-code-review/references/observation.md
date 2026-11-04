@@ -1,7 +1,5 @@
 # Swift Observation and SwiftUI State
 
-> Adapted and rewritten for this collection; see [../NOTICE.md](../NOTICE.md).
-
 Review ownership and invalidation separately. `@State`, `@Bindable`, and
 `@Environment` are not interchangeable wrappers, and a model being observable
 does not make every nested reference observable.
