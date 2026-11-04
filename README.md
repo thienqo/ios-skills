@@ -111,7 +111,8 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md) for authoring rules and
 
 ## License
 
-The project uses the [PolyForm Perimeter License 1.0.0](LICENSE). The adapted
-[`swift-code-review`](skills/swift-code-review/) skill keeps its upstream Apache-2.0
-attribution. Apple frameworks, documentation, and trademarks belong to Apple Inc.
+The project uses the [PolyForm Perimeter License 1.0.0](LICENSE).
+The [`swift-code-review`](skills/swift-code-review/) skill is provided under
+[Apache-2.0](skills/swift-code-review/LICENSE-APACHE-2.0.txt).
+Apple frameworks, documentation, and trademarks belong to Apple Inc.
 This project is independent and not endorsed by Apple.

@@ -1,7 +1,5 @@
 # Common Swift Review Checks
 
-> Adapted and rewritten for this collection; see [../NOTICE.md](../NOTICE.md).
-
 Use these checks to find runtime hazards, not to enforce a personal style. A
 pattern is a finding only when the value can vary at runtime, the ownership graph
 can form a cycle, or the API contract is misleading.
