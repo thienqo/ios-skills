@@ -34,6 +34,10 @@ class ClaudeDirectoryBuildTests(unittest.TestCase):
         entries = {path.name for path in self.out.iterdir()}
         self.assertEqual(entries, {".claude-plugin", "LICENSE", "README.md", "skills"})
 
+    def test_icon_is_at_the_default_listing_path(self) -> None:
+        icon = (self.out / ".claude-plugin" / "icon.png").read_bytes()
+        self.assertEqual(icon[:8], b"\x89PNG\r\n\x1a\n")
+
     def test_every_skill_is_included_without_evals(self) -> None:
         source = {path.parent.name for path in (ROOT / "skills").glob("*/SKILL.md")}
         built = {path.parent.name for path in (self.out / "skills").glob("*/SKILL.md")}

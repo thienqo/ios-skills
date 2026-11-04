@@ -8,6 +8,7 @@ on:
       - "LICENSE"
       - "package.json"
       - ".github/scripts/build_claude_directory.py"
+      - ".github/claude-directory/**"
   workflow_dispatch:
 
 permissions:

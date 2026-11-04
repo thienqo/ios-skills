@@ -39,6 +39,12 @@ MIN_README_WORDS = 40
 SYSTEM_FILES = {".DS_Store", "Thumbs.db", "desktop.ini"}
 FORBIDDEN_ROOT_ENTRIES = {"bin", ".mcp.json", "package.json", "package-lock.json"}
 
+# The directory takes a listing icon only once: the first time the plugin is saved or submitted.
+ICON_SOURCE = ROOT / ".github" / "claude-directory" / "icon.png"
+ICON_PATH = ".claude-plugin/icon.png"
+MAX_ICON_BYTES = 2 * 1024 * 1024
+ICON_SIDE_RANGE = range(512, 2049)
+
 README = """\
 # {display_name}
 
@@ -125,6 +131,7 @@ def build(out: Path) -> None:
     shutil.copyfile(ROOT / "LICENSE", out / "LICENSE")
 
     (out / ".claude-plugin").mkdir()
+    shutil.copyfile(ICON_SOURCE, out / ICON_PATH)
     (out / ".claude-plugin" / "plugin.json").write_text(
         json.dumps(manifest(version, skill_count), indent=2) + "\n"
     )
@@ -138,8 +145,22 @@ def build(out: Path) -> None:
     )
 
 
-def check(out: Path) -> list[str]:
+def check_icon(icon: Path) -> list[str]:
+    data = icon.read_bytes()
+    if data[:8] != b"\x89PNG\r\n\x1a\n" or data[12:16] != b"IHDR":
+        return [f"{ICON_PATH} is not a PNG"]
     problems: list[str] = []
+    width = int.from_bytes(data[16:20], "big")
+    height = int.from_bytes(data[20:24], "big")
+    if width != height or width not in ICON_SIDE_RANGE:
+        problems.append(f"{ICON_PATH} must be square, 512 to 2048 px, not {width}x{height}")
+    if len(data) >= MAX_ICON_BYTES:
+        problems.append(f"{ICON_PATH} must be under {MAX_ICON_BYTES} bytes")
+    return problems
+
+
+def check(out: Path) -> list[str]:
+    problems: list[str] = check_icon(out / ICON_PATH)
     files = [path for path in out.rglob("*") if path.is_file() or path.is_symlink()]
 
     if len(files) > MAX_FILES:
@@ -152,6 +173,8 @@ def check(out: Path) -> list[str]:
         relative = path.relative_to(out)
         if path.is_symlink():
             problems.append(f"{relative} is a symbolic link")
+            continue
+        if relative.as_posix() == ICON_PATH:
             continue
         if path.name in SYSTEM_FILES or "__MACOSX" in relative.parts:
             problems.append(f"{relative} is a system file")
