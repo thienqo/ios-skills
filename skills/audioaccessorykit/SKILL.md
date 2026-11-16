@@ -16,6 +16,7 @@ Participate in Apple's seamless audio ecosystem, automatic audio routing, and he
 - [Device Capabilities & Configuration](#device-capabilities--configuration)
 - [Monitoring Placement State](#monitoring-placement-state)
 - [Audio Routing Coordination](#audio-routing-coordination)
+- [iOS 27 Updates](#ios-27-updates)
 - [Common Mistakes](#common-mistakes)
 - [Review Checklist](#review-checklist)
 - [References](#references)
@@ -78,6 +79,13 @@ func reportEarPlacement(inEar: Bool, device: AccessoryControlDevice) async throw
 ## Audio Routing Coordination
 
 When earbuds are placed in-ear, iOS automatically activates the audio route if automatic switching is enabled by the user in Settings.
+
+## iOS 27 Updates
+
+- Third-party manufacturers can now provide headphone information to the system to support fixed spatial audio.
+- iOS 27.0 availability is developer-testing only on iPhone and iPad; customer availability in the EU arrives in a future iOS 27 / iPadOS 27 release. Gate new adoption accordingly.
+
+Sources: https://sosumi.ai/documentation/ios-ipados-release-notes/ios-ipados-27-release-notes
 
 ## Common Mistakes
 

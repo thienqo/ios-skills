@@ -17,7 +17,6 @@ Match recorded or ambient audio against the Shazam catalog or custom audio catal
 - [Review Checklist](#review-checklist)
 - [References](#references)
 
----
 
 ## Modern Audio Recognition with SHManagedSession
 
@@ -59,7 +58,6 @@ final class AudioRecognitionViewModel {
 }
 ```
 
----
 
 ## Real-Time Matching with SHSession
 
@@ -113,7 +111,6 @@ final class ManualShazamMatcher: NSObject, SHSessionDelegate, @unchecked Sendabl
 }
 ```
 
----
 
 ## Custom Catalogs with SHCustomCatalog
 
@@ -143,7 +140,6 @@ final class CustomCatalogService {
 }
 ```
 
----
 
 ## Signature Generation with SHSignatureGenerator
 
@@ -170,7 +166,6 @@ final class SignatureGeneratorHelper {
 }
 ```
 
----
 
 ## Common Mistakes
 
@@ -180,7 +175,6 @@ final class SignatureGeneratorHelper {
 - **Reusing depleted signature generators:** Once `generator.signature()` is called, the signature generator is finished; create a new instance for subsequent audio segments.
 - **Retaining taps on AVAudioEngine:** Always remove the tap before deallocating `AVAudioEngine` to prevent runtime crashes.
 
----
 
 ## Review Checklist
 
@@ -191,7 +185,6 @@ final class SignatureGeneratorHelper {
 - [ ] Are custom catalogs loaded from `.shazamcatalog` files or initialized with valid reference signatures?
 - [ ] Is `engine.inputNode.removeTap(onBus: 0)` called when listening concludes?
 
----
 
 ## References
 

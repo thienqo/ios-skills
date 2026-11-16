@@ -32,10 +32,8 @@ layout construction to `swiftui-layout-components`.
 ## Workflow Decision Tree
 
 - Code supplied: review it first and label findings as hypotheses.
-- Symptoms only: collect the smallest relevant view, data flow, reproduction,
-  device, OS, and build configuration.
-- Inconclusive review: collect a trace or lane screenshots before prescribing a
-  broad refactor.
+- Symptoms only: collect the smallest relevant view, data flow, reproduction, device, OS, and build config.
+- Inconclusive review: collect a trace or lane screenshots before prescribing a broad refactor.
 
 Use this triage list for both code and trace analysis:
 
@@ -108,12 +106,9 @@ Use the **SwiftUI template** in Instruments (Cmd+I to profile). Current SwiftUI 
 Add `Self._printChanges()` in debug builds to log which property triggered a view update:
 
 ```swift
-var body: some View {
-    #if DEBUG
-    let _ = Self._printChanges()  // "MyView: @self, _count changed."
-    #endif
-    Text("Count: \(count)")
-}
+#if DEBUG
+let _ = Self._printChanges()  // "MyView: @self, _count changed."
+#endif
 ```
 
 See [references/optimizing-swiftui-performance-instruments.md](references/optimizing-swiftui-performance-instruments.md) for the full profiling workflow.
@@ -127,12 +122,8 @@ root conditional branches as suspects—not automatic defects—when evidence sh
 state churn or expensive recreation.
 
 ```swift
-Text(title)
-    .foregroundStyle(isHighlighted ? .yellow : .primary)
-
-ForEach(items) { item in
-    Row(item: item).id(item.stableID)
-}
+Text(title).foregroundStyle(isHighlighted ? .yellow : .primary)
+ForEach(items) { item in Row(item: item).id(item.stableID) }
 ```
 
 ## Lazy Loading Patterns
@@ -143,14 +134,11 @@ construction choices to `swiftui-layout-components`.
 
 Guardrails:
 
-- Off-screen views are removed from the lazy stack. SwiftUI may keep them briefly, then delete the views and their view-local state.
-- Persist important row state outside the row view if it must survive scrolling away.
-- Body and layout work can happen before `onAppear` because of prefetching. Do not make `onAppear` the only setup point for data a row needs to render.
-- Treat `onAppear` and `onDisappear` as visibility signals, not lifetime guarantees.
-- Filter data before `ForEach`; avoid `if` branches that make each element produce zero or one row.
-- Keep each `ForEach` element to a constant number of top-level subviews. Wrap row contents in a stable container if needed. Use `-LogForEachSlowPath YES` while debugging list/table slow paths.
-- Avoid absolute content-size or content-offset assumptions; lazy stacks estimate off-screen sizes.
-- Avoid geometry feedback loops in lazy rows. Prefer stable sizing, layout primitives, or a custom `Layout` before feeding geometry changes back into row state.
+- Off-screen views are removed from the lazy stack (SwiftUI may keep them briefly), so persist important row state outside the row.
+- Body and layout can run before `onAppear` because of prefetching; do not make `onAppear` the only setup point, and treat `onAppear`/`onDisappear` as visibility signals, not lifetime guarantees.
+- Filter data before `ForEach`, keep each element to a constant number of top-level subviews, and use `-LogForEachSlowPath YES` while debugging.
+- Avoid absolute content-size/offset assumptions; lazy stacks estimate off-screen sizes.
+- Avoid geometry feedback loops in lazy rows; prefer stable sizing, a custom `Layout`, or thresholded changes.
 
 ## State and Observation Optimization
 
@@ -158,15 +146,12 @@ Observation tracks properties read during view evaluation. Reduce fan-out by
 passing narrow derived values or moving reads into focused child views.
 
 ```swift
-// Split reads into child views so each tracks only what it renders.
 struct ProfileView: View {
     let model: ProfileModel
     var body: some View {
         VStack {
-            NameRow(model: model)      // only tracks name
-            EmailRow(model: model)     // only tracks email
-            AvatarView(model: model)   // only tracks avatar
-            SettingsForm(model: model) // only tracks settings
+            NameRow(model: model); EmailRow(model: model)          // each tracks only its own reads
+            AvatarView(model: model); SettingsForm(model: model)
         }
     }
 }
@@ -179,14 +164,14 @@ performance ritual—measure first and route general state design to
 
 ## Common Mistakes
 
-1. **Profiling Debug builds.** Debug builds include extra runtime checks and disable optimizations, producing misleading perf data. Profile Release builds on a real device.
-2. **Observing an entire model when only one property is needed.** Break large `@Observable` models into focused ones, or use computed properties/closures to narrow observation scope.
-3. **Using geometry feedback inside ScrollView items.** GeometryReader or noisy geometry state can force repeated layout. Prefer stable sizing, custom layout, or narrowly scoped `.onGeometryChange` (iOS 16+) with thresholds.
-4. **Calling `DateFormatter()` or `NumberFormatter()` inside `body`.** These are expensive to create. Make them static or move them outside the view.
-5. **Animating non-equatable state.** If SwiftUI cannot determine equality, it redraws every frame. Conform state to `Equatable`, then use `.animation(_:value:)` for simple value-bound changes or `.animation(_:body:)` for narrower modifier-scoped implicit animation.
-6. **Large flat `List` without identifiers.** Use `id:` or make items `Identifiable` so SwiftUI can diff efficiently instead of rebuilding the entire list.
-7. **Unnecessary `@State` wrapper objects.** Wrapping a simple value type in a class for `@State` defeats value semantics. Use plain `@State` with structs.
-8. **Blocking `MainActor` with synchronous I/O.** File reads, JSON parsing of large payloads, and image decoding should happen off the main actor. Prefer nonisolated async helpers or dedicated actors; reserve `Task.detached` for cases where you intentionally break actor inheritance and handle cancellation yourself.
+1. **Profiling Debug builds.** Debug builds add runtime checks and disable optimizations; profile Release on a real device.
+2. **Observing an entire model when one property is needed.** Split large `@Observable` models or narrow reads with computed properties/closures.
+3. **Geometry feedback inside `ScrollView` items.** Prefer stable sizing, custom layout, or thresholded `.onGeometryChange` (iOS 16+).
+4. **Creating `DateFormatter`/`NumberFormatter` inside `body`.** Make them static or move them outside the view.
+5. **Animating non-equatable state.** Conform to `Equatable` and use `.animation(_:value:)` or `.animation(_:body:)`.
+6. **Large flat `List` without identifiers.** Use `id:` or `Identifiable` so SwiftUI diffs instead of rebuilding the entire list.
+7. **Unnecessary `@State` wrapper classes.** Use plain `@State` with structs; wrapping a value type in a class defeats value semantics.
+8. **Blocking `MainActor` with synchronous I/O.** Move file reads, large parsing, and decoding off the main actor; reserve `Task.detached` for deliberate actor-inheritance breaks.
 
 ## Review Checklist
 

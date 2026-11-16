@@ -17,7 +17,6 @@ Configure `AVAudioSession` and construct `AVAudioEngine` node graphs for playbac
 - [Review Checklist](#review-checklist)
 - [References](#references)
 
----
 
 ## Audio Session Configuration
 
@@ -59,7 +58,6 @@ final class AudioSessionManager {
 - `.playAndRecord`: Bidirectional audio (VoIP, chat, audio recording while monitoring). Use `.defaultToSpeaker` to prevent routing audio only to receiver.
 - `.ambient`: Mixes with other audio apps; silenced by Ring/Silent switch.
 
----
 
 ## Interruption & Route Change Handling
 
@@ -104,7 +102,6 @@ actor AudioNotificationObserver {
 
 Pause playback immediately when `AVAudioSessionRouteChangeReasonKey` indicates `.oldDeviceUnavailable` (e.g., headphones disconnected).
 
----
 
 ## AVAudioEngine Architecture
 
@@ -141,7 +138,6 @@ final class AudioEngineController {
 }
 ```
 
----
 
 ## Live Microphone Capture & Taps
 
@@ -173,7 +169,6 @@ final class MicrophoneTapManager: Sendable {
 }
 ```
 
----
 
 ## Common Mistakes
 
@@ -183,7 +178,6 @@ final class MicrophoneTapManager: Sendable {
 - **Ignoring route loss:** Failing to pause playback when headphones disconnect blares audio through built-in speakers.
 - **Retaining AVAudioEngine across session resets:** Handle `AVAudioEngineConfigurationChange` by rebuilding graph or restarting the engine.
 
----
 
 ## Review Checklist
 
@@ -195,7 +189,6 @@ final class MicrophoneTapManager: Sendable {
 - [ ] Does microphone capture check and request `AVAudioApplication.requestRecordPermission()` prior to starting?
 - [ ] Are audio node taps properly removed prior to re-installing or stopping?
 
----
 
 ## References
 

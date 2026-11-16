@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased
+
+### Skills
+
+- Add iOS 27 updates to `homekit` (Apple Intelligence for Home / HKSV on-device and Private Cloud Compute) and `audioaccessorykit` (fixed spatial audio for third-party headphones, developer-testing only in 27.0).
+- Verify the iOS 27 P0 group against `sosumi.ai/documentation/updates/*` and the iOS 27 release notes; record the no-change results in the local roadmap. No P0 skill needed new content.
+
+### Quality and maintainability
+
+- Compact 12 oversized skill entrypoints below 200 lines using progressive disclosure: `swiftui-liquid-glass` (298→157), `metrickit` (297→197), `app-store-optimization` (294→195), `swiftui-webkit` (292→175), `swiftui-navigation` (275→158), `focus-engine` (248→95), `swift-security` (233→198), `app-store-review` (219→199), `swiftui-performance` (214→199), `avfoundation-audio` (205→198), `shazamkit` (201→194), and `ios-memgraph-analysis` (201→199).
+- Move the ATT implementation skeleton into `app-store-review`'s review-checklists reference and the manual-HStack split into `swiftui-navigation`'s navigationstack reference so no guidance was lost.
+
 ## 1.4.1 - 2026-10-29
 
 - Add `release-npm.yml`: publish to npm with provenance, tag the merged commit, create a GitHub Release, and dispatch the Tessl publish when a PR merges a new `package.json` version.

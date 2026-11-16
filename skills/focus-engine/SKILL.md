@@ -27,195 +27,42 @@ When a request mixes focus with accessibility or spatial input, keep the boundar
 
 ## SwiftUI FocusState
 
-Use `@FocusState` to read and write focus placement inside a scene. Use `Bool` for a single target or an optional `Hashable` enum for multiple targets.
+Use `@FocusState` to read and write focus placement inside a scene. Use `Bool` for a single target or an optional `Hashable` enum for multiple targets. Keep focus state local to the view that owns the focusable controls.
 
 ```swift
-struct LoginView: View {
-    enum Field: Hashable { case email, password }
+@FocusState private var focusedField: Field?
 
-    @State private var email = ""
-    @State private var password = ""
-    @FocusState private var focusedField: Field?
-
-    var body: some View {
-        Form {
-            TextField("Email", text: $email)
-                .focused($focusedField, equals: .email)
-
-            SecureField("Password", text: $password)
-                .focused($focusedField, equals: .password)
-        }
-        .onAppear { focusedField = .email }
-        .onSubmit {
-            switch focusedField {
-            case .email: focusedField = .password
-            case .password, nil: submit()
-            }
-        }
-    }
-}
+TextField("Email", text: $email).focused($focusedField, equals: .email)
+.onSubmit { focusedField = .password }
 ```
 
-Keep focus state local to the view that owns the focusable controls.
+See [FocusState patterns](references/focus-patterns.md#focusstate-patterns) for the full multi-field form example.
 
 ## Default Focus
 
-Use `.defaultFocus` to set the preferred initial focus region or control when a view appears or when focus is reassigned automatically.
-
-```swift
-struct SidebarView: View {
-    enum Target: Hashable { case library, settings }
-    @FocusState private var focusedTarget: Target?
-
-    var body: some View {
-        VStack {
-            Button("Library") { }
-                .focused($focusedTarget, equals: .library)
-
-            Button("Settings") { }
-                .focused($focusedTarget, equals: .settings)
-        }
-        .defaultFocus($focusedTarget, .library)
-    }
-}
-```
-
-Prefer one clear default destination per screen or focus region.
+Use `.defaultFocus` to set the preferred initial focus region or control when a view appears or when focus is reassigned automatically. Prefer one clear default destination per screen or focus region.
 
 ## Focused Values and Scene Values
 
-Use focused values to expose state from the currently focused view. Use scene-focused values when commands or scene-wide UI should keep access to the value even after focus moves within that scene.
-
-```swift
-struct SelectedRecipeKey: FocusedValueKey {
-    typealias Value = Binding<Recipe>
-}
-
-extension FocusedValues {
-    var selectedRecipe: Binding<Recipe>? {
-        get { self[SelectedRecipeKey.self] }
-        set { self[SelectedRecipeKey.self] = newValue }
-    }
-}
-
-struct RecipeDetailView: View {
-    @Binding var recipe: Recipe
-
-    var body: some View {
-        Text(recipe.title)
-            .focusedSceneValue(\.selectedRecipe, $recipe)
-    }
-}
-```
-
-Use this pattern for menus, commands, and toolbars that need to act on the focused scene's current content.
+Use focused values to expose state from the currently focused view. Use scene-focused values (`focusedSceneValue`) when commands or scene-wide UI should keep access to the value even after focus moves within that scene. Use this pattern for menus, commands, and toolbars that need to act on the focused scene's current content.
 
 ## Focusable Interactions
 
-Use `.focusable(_:interactions:)` on custom SwiftUI views that should participate in keyboard or directional focus.
-
-```swift
-struct SelectableCard: View {
-    let title: String
-    let action: () -> Void
-    @FocusState private var isFocused: Bool
-
-    var body: some View {
-        Button(action: action) {
-            RoundedRectangle(cornerRadius: 12)
-                .fill(isFocused ? Color.accentColor.opacity(0.15) : .clear)
-                .overlay { Text(title) }
-        }
-        .buttonStyle(.plain)
-        .focusable(interactions: .activate)
-        .focused($isFocused)
-    }
-}
-```
-
-Prefer semantic `Button`, `Toggle`, `TextField`, and other system controls before making arbitrary gesture-driven views focusable. Use `.focusable(interactions: .activate)` for custom button-like controls only when a semantic control cannot express the UI. Reserve broader interactions for views that genuinely need editing or multiple focus-driven behaviors.
+Use `.focusable(_:interactions:)` on custom SwiftUI views that should participate in keyboard or directional focus. Prefer semantic `Button`, `Toggle`, `TextField`, and other system controls before making arbitrary gesture-driven views focusable; use `.focusable(interactions: .activate)` for custom button-like controls only when a semantic control cannot express the UI.
 
 ## Focus Sections
 
-Use `focusSection()` on macOS 13+ and tvOS 15+ to guide directional movement across groups of focusable descendants in uneven layouts.
-
-```swift
-struct TVLibraryView: View {
-    var body: some View {
-        HStack {
-            VStack {
-                Button("Recent") { }
-                Button("Favorites") { }
-                Button("Downloaded") { }
-            }
-            .focusSection()
-
-            VStack {
-                Button("Featured") { }
-                Button("Top Picks") { }
-                Button("Continue Watching") { }
-            }
-            .focusSection()
-        }
-    }
-}
-```
-
-Use focus sections on macOS and tvOS when default left/right or up/down movement skips the intended group.
+Use `focusSection()` on macOS 13+ and tvOS 15+ to guide directional movement across groups of focusable descendants in uneven layouts. Use it when default left/right or up/down movement skips the intended group.
 
 ## Focus Restoration
 
-After dismissing a sheet, popover, or transient overlay, return focus to a stable trigger or logical next target.
-
-```swift
-struct FiltersView: View {
-    @State private var showSheet = false
-    @FocusState private var isFilterButtonFocused: Bool
-
-    var body: some View {
-        Button("Filters") { showSheet = true }
-            .focused($isFilterButtonFocused)
-            .sheet(isPresented: $showSheet) {
-                FilterEditor()
-                    .onDisappear {
-                        Task { @MainActor in
-                            isFilterButtonFocused = true
-                        }
-                    }
-            }
-    }
-}
-```
-
-Restore focus intentionally whenever presentation changes would otherwise leave users disoriented.
+After dismissing a sheet, popover, or transient overlay, return focus to a stable trigger or logical next target. Restore focus intentionally whenever presentation changes would otherwise leave users disoriented.
 
 ## UIKit Focus Guides
 
-Use `UIFocusGuide` when UIKit or tvOS layouts need custom routing across empty space or awkward geometry.
+Use `UIFocusGuide` when UIKit or tvOS layouts need custom routing across empty space or awkward geometry. `UIFocusGuide` is invisible and not a view; constrain it like a layout guide and set `preferredFocusEnvironments`. Use it to redirect focus without adding decorative UI.
 
-```swift
-final class DashboardViewController: UIViewController {
-    private let focusGuide = UIFocusGuide()
-    @IBOutlet private weak var leadingButton: UIButton!
-    @IBOutlet private weak var trailingButton: UIButton!
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        view.addLayoutGuide(focusGuide)
-        focusGuide.preferredFocusEnvironments = [trailingButton]
-
-        NSLayoutConstraint.activate([
-            focusGuide.leadingAnchor.constraint(equalTo: leadingButton.trailingAnchor),
-            focusGuide.trailingAnchor.constraint(equalTo: trailingButton.leadingAnchor),
-            focusGuide.topAnchor.constraint(equalTo: leadingButton.topAnchor),
-            focusGuide.bottomAnchor.constraint(equalTo: leadingButton.bottomAnchor)
-        ])
-    }
-}
-```
-
-`UIFocusGuide` is invisible and not a view. Use it to redirect focus without adding decorative UI.
+See [Focus patterns](references/focus-patterns.md) for complete SwiftUI and UIKit examples.
 
 ## Common Mistakes
 
