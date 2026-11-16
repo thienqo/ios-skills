@@ -1,7 +1,7 @@
 {
   "name": "thienqo-ios-skills",
   "displayName": "thienqo-ios",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "95 skills for Swift, SwiftUI, and Apple-platform development, built for Xcode 27, Swift 6.4, and the iOS 27 SDK.",
   "author": {
     "name": "Thien Ngo",
