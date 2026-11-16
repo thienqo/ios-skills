@@ -48,30 +48,15 @@ final class MetricsService {
     private var metricTask: Task<Void, Never>?
     private var diagnosticTask: Task<Void, Never>?
 
-    func start(
-        persistMetric: @escaping @Sendable (MetricReport) async -> Void,
-        persistDiagnostic: @escaping @Sendable (DiagnosticReport) async -> Void
-    ) {
+    func start(persistMetric: @escaping @Sendable (MetricReport) async -> Void,
+               persistDiagnostic: @escaping @Sendable (DiagnosticReport) async -> Void) {
         guard metricTask == nil, diagnosticTask == nil else { return }
         let manager = manager
-
-        metricTask = Task {
-            for await report in manager.metricReports {
-                await persistMetric(report)
-            }
-        }
-
-        diagnosticTask = Task {
-            for await report in manager.diagnosticReports {
-                await persistDiagnostic(report)
-            }
-        }
+        metricTask = Task { for await r in manager.metricReports { await persistMetric(r) } }
+        diagnosticTask = Task { for await r in manager.diagnosticReports { await persistDiagnostic(r) } }
     }
 
-    deinit {
-        metricTask?.cancel()
-        diagnosticTask?.cancel()
-    }
+    deinit { metricTask?.cancel(); diagnosticTask?.cancel() }
 }
 ```
 
@@ -79,64 +64,15 @@ The persistence closures are application-specific. Implement them with the durab
 
 ## Receiving Metric Reports
 
-`MetricReport` is `Codable` and `Sendable`. It describes an interval through:
+`MetricReport` is `Codable` and `Sendable` and carries `timeRange`, optional `environment`, `intervalEntries` for full-day and shorter measurements, and `stateEntries` for state-scoped measurements.
 
-- `timeRange: DateInterval`
-- optional `environment` metadata
-- `intervalEntries` for full-day and shorter interval measurements
-- `stateEntries` for measurements associated with application states
-
-Metric reports normally arrive on a daily cadence. Persist the complete report before extracting individual results.
-
-For daily analysis, read the documented `fullDayEntry` and switch over its `MetricResult` values:
-
-```swift
-let entry = report.intervalEntries.fullDayEntry
-
-for result in entry.values {
-    switch result {
-    case .hangTime(let metric):
-        analyzeHangTime(metric)
-    case .peakMemory(let metric):
-        analyzePeakMemory(metric)
-    case .timeToFirstDraw(let metric):
-        analyzeLaunch(metric)
-    case .signpostInterval(let metric):
-        analyzeSignpost(metric)
-    @unknown default:
-        preserveUnknownMetric(result)
-    }
-}
-```
-
-Use `@unknown default` so a beta or future result does not make the ingestion pipeline brittle. Preserve the raw encoded report even when the current app does not understand a result.
+Metric reports normally arrive on a daily cadence. Persist the complete report before extracting individual results, always switch with `@unknown default`, and preserve the raw encoded report even when the current app does not understand a result. The full daily-analysis switch lives in [Metric and Diagnostic Analysis](references/metrickit-patterns.md#metric-and-diagnostic-analysis).
 
 ## Receiving Diagnostic Reports
 
 `DiagnosticReport` is `Codable` and `Sendable`. It contains a `timeRange`, required `environment` metadata, and one `DiagnosticResult`.
 
-Diagnostics are individual, event-based reports intended for prompt delivery when MetricKit produces them. Do not assume every crash, hang, or resource event generates a report; system sampling and eligibility still apply.
-
-After durable storage, route the result explicitly:
-
-```swift
-switch report.result {
-case .crash(let diagnostic):
-    analyzeCrash(diagnostic)
-case .hang(let diagnostic):
-    analyzeHang(diagnostic)
-case .cpuException(let diagnostic):
-    analyzeCPUException(diagnostic)
-case .diskWriteException(let diagnostic):
-    analyzeDiskWrites(diagnostic)
-case .appLaunch(let diagnostic):
-    analyzeLaunch(diagnostic)
-case .memoryException(let diagnostic):
-    analyzeMemory(diagnostic)
-@unknown default:
-    preserveUnknownDiagnostic(report)
-}
-```
+Diagnostics are individual, event-based reports intended for prompt delivery when MetricKit produces them. Do not assume every crash, hang, or resource event generates a report; system sampling and eligibility still apply. Persist before routing the result; the full switch lives in [Metric and Diagnostic Analysis](references/metrickit-patterns.md#metric-and-diagnostic-analysis).
 
 The iOS/iPadOS 27 diagnostic types are `CrashDiagnostic`, `HangDiagnostic`, `CPUExceptionDiagnostic`, `DiskWriteExceptionDiagnostic`, `AppLaunchDiagnostic`, and `MemoryExceptionDiagnostic`. The memory-exception case is new in iOS 27.
 
@@ -153,9 +89,7 @@ Useful fields include:
 
 ## Key Metric Results
 
-Choose a small telemetry vocabulary that matches the investigation rather than exporting every result. Prioritize the relevant categories: responsiveness and terminations; runtime, CPU, memory, network, and storage; or launch, display/GPU, and custom intervals.
-
-Aggregate by app version and environment metadata, compare distributions rather than single values, and correlate regressions with releases. Avoid treating a daily aggregate as a precise trace of one user action.
+Choose a small telemetry vocabulary that matches the investigation rather than exporting every result. Aggregate by app version and environment metadata, compare distributions rather than single values, and correlate regressions with releases. Avoid treating a daily aggregate as a precise trace of one user action.
 
 Load the [Key Metric Result Catalog](references/metrickit-patterns.md#key-metric-result-catalog) when mapping exact `MetricResult` cases into a parser or dashboard.
 
@@ -167,7 +101,7 @@ The iOS 27 `CallStackTree` replaces `MXCallStackTree`. It is `Codable` and `Send
 - `callStackThreads` for thread-oriented analysis
 - `binaryInfo` for image and binary metadata
 
-Store the complete diagnostic report before flattening or symbolication. Preserve binary identifiers and offsets so server-side symbolication can use matching archives and dSYMs.
+Store the complete diagnostic report before flattening or symbolication. Preserve binary identifiers and offsets so server-side symbolication can use matching archives and dSYMs. See [Call Stack Trees](references/metrickit-patterns.md#call-stack-trees) for the server-side symbolication pipeline.
 
 ## Custom Signpost Metrics
 
@@ -175,56 +109,24 @@ Create an OS log through the manager, then use `mxSignpost` for begin/end measur
 
 ```swift
 let log = manager.logHandle(category: "ImagePipeline")
-
 mxSignpost(.begin, log: log, name: "Decode")
 await decodeImage()
 mxSignpost(.end, log: log, name: "Decode")
 ```
 
-MetricKit exposes the aggregate as `MetricResult.signpostInterval`. Do not search for a `signpostMetrics` array on `MetricReport`.
-
-Use `mxSignpost` when MetricKit resource measurement is required. Apple documents that intervals created with `OSSignposter` and a MetricKit log handle do not populate the resource-measurement fields that `mxSignpost` provides.
-
-Keep high-volume local tracing separate from the small set of stable production intervals used for MetricKit aggregation.
+The aggregate is `MetricResult.signpostInterval`; do not look for a `signpostMetrics` array on `MetricReport`. Prefer `mxSignpost` when resource measurement is required; `OSSignposter` intervals with the MetricKit handle do not populate those fields. See [Custom Signpost Metrics](references/metrickit-patterns.md#custom-signpost-metrics).
 
 ## Durable Export and Upload
 
-Treat report delivery as an at-least-once ingestion problem:
+Treat report delivery as an at-least-once ingestion problem: encode the complete report, atomically enqueue the bytes in an app-owned durable outbox, record type/schema/app version/dedup key, acknowledge only after the enqueue succeeds, then upload with retry and batching and mark uploaded only after server acceptance.
 
-1. Encode the complete `MetricReport` or `DiagnosticReport` with `JSONEncoder`.
-2. Atomically enqueue the bytes in an app-owned durable outbox.
-3. Record report type, schema version, app version, and a stable deduplication key.
-4. Acknowledge local processing only after the enqueue succeeds.
-5. Upload later with retry, backoff, batching, and retention limits.
-6. Mark the outbox item uploaded only after the server accepts it.
-
-```swift
-let data = try JSONEncoder().encode(report)
-try await durableOutbox.enqueue(data, kind: .metric)
-```
-
-`durableOutbox` is an application-owned abstraction, not a MetricKit API. Do not perform a synchronous network upload inside the sequence consumer.
-
-Durable local storage is the recovery mechanism for reports received through the modern sequences; do not make successful ingestion depend on an assumed modern backfill API.
+`durableOutbox` is an application-owned abstraction, not a MetricKit API. Do not perform a synchronous network upload inside the sequence consumer. See [Durable Report Outbox](references/metrickit-patterns.md#durable-report-outbox) for the record schema and upload-worker rules. Durable local storage is the recovery mechanism; do not depend on an assumed modern backfill API.
 
 ## Extended Launch Measurement
 
-Use `trackLaunchTask(id:onTrackingError:_:)` on the manager for work that extends beyond time to first draw:
+Use `trackLaunchTask(id:onTrackingError:_:)` on the manager for work that extends beyond time to first draw. The API is `@MainActor` and has synchronous and asynchronous overloads; the closure's result and error propagate to the caller, while `onTrackingError` reports a `MetricManager.LaunchTaskError` without interrupting the work. Results appear as `MetricResult.extendedLaunch`. Use stable `LaunchTaskID` values and track only launch-critical work.
 
-```swift
-await manager.trackLaunchTask(
-    id: "bootstrap-data",
-    onTrackingError: { error in
-        recordLaunchTrackingError(error)
-    }
-) {
-    await bootstrapApplication()
-}
-```
-
-The API is `@MainActor` and has synchronous and asynchronous overloads. The task closure's result and thrown error propagate to the caller; a `MetricManager.LaunchTaskError` is reported through `onTrackingError` without interrupting the tracked work. Results appear as `MetricResult.extendedLaunch`.
-
-Use stable `LaunchTaskID` values and track only launch-critical work.
+See [Extended Launch](references/metrickit-patterns.md#extended-launch) for the full pattern.
 
 ## iOS 26 Compatibility
 
@@ -239,9 +141,7 @@ Load [iOS 26 Compatibility](references/metrickit-patterns.md#ios-26-compatibilit
 
 ## Xcode Organizer
 
-Use Xcode Organizer to inspect Apple-aggregated production metrics, hangs, crashes, and regressions before building a custom backend. Use direct MetricKit ingestion when the product needs custom correlation, retention, alerting, or integration with an existing observability system.
-
-Do not expect development-device runs to reproduce the population, cadence, or aggregation of production reports.
+Use Xcode Organizer to inspect Apple-aggregated metrics, hangs, crashes, and regressions before building a custom backend; use direct MetricKit ingestion for custom correlation, retention, alerting, or an existing observability system. Do not expect development-device runs to reproduce production population, cadence, or aggregation.
 
 ## Scope Boundaries
 
@@ -282,6 +182,7 @@ MetricKit identifies production symptoms and trends. Route the actual code fix t
 
 ## References
 
+- [MetricKit Extended and Compatibility Patterns](references/metrickit-patterns.md)
 - [MetricManager](https://sosumi.ai/documentation/metrickit/metricmanager)
 - [Metric report sequence](https://sosumi.ai/documentation/metrickit/metricmanager/metricreports)
 - [Diagnostic report sequence](https://sosumi.ai/documentation/metrickit/metricmanager/diagnosticreports)
@@ -294,4 +195,3 @@ MetricKit identifies production symptoms and trends. Route the actual code fix t
 - [Analyzing app performance with MetricKit](https://sosumi.ai/documentation/metrickit/analyzing-app-performance-with-metrickit)
 - [iOS & iPadOS 27 release notes](https://sosumi.ai/documentation/ios-ipados-release-notes/ios-ipados-27-release-notes)
 - [What's new in MetricKit (WWDC26)](https://sosumi.ai/videos/play/wwdc2026/222)
-- [MetricKit Extended and Compatibility Patterns](references/metrickit-patterns.md)

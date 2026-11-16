@@ -32,7 +32,7 @@ Use the narrowest tool that matches the job.
 | OAuth or third-party sign-in | `ASWebAuthenticationSession` |
 | Back-deploy below iOS 26 or use missing legacy-only WebKit features | `WKWebView` fallback |
 
-Prefer `WebView` and `WebPage` for modern SwiftUI apps targeting iOS 26+ when the new API surface covers the feature. Apple’s WWDC25 guidance frames existing UIKit/AppKit WebKit wrappers in SwiftUI apps as good candidates to try migrating, not as a blanket mandate to delete every fallback.
+Prefer `WebView` and `WebPage` for modern SwiftUI apps targeting iOS 26+ when the new API surface covers the feature. Apple's WWDC25 guidance frames existing UIKit/AppKit WebKit wrappers in SwiftUI apps as good candidates to try migrating, not as a blanket mandate to delete every fallback.
 
 Do not use embedded web views for OAuth. That stays an `ASWebAuthenticationSession` flow.
 
@@ -41,92 +41,18 @@ Do not use embedded web views for OAuth. That stays an `ASWebAuthenticationSessi
 Use the simple `WebView(url:)` form when the app only needs to render a URL and SwiftUI state drives navigation.
 
 ```swift
-import SwiftUI
-import WebKit
-
-struct ArticleView: View {
-    let url: URL
-
-    var body: some View {
-        WebView(url: url)
-    }
-}
+WebView(url: url)
 ```
 
-Create a `WebPage` when the app needs to load requests directly, observe state, call JavaScript, or customize navigation behavior.
-
-A `WebPage` can be associated with only one `WebView` at a time. Create separate `WebPage` instances for multiple visible web views.
-
-```swift
-@Observable
-@MainActor
-final class ArticleModel {
-    let page = WebPage()
-
-    func load(_ url: URL) async throws {
-        for try await _ in page.load(URLRequest(url: url)) {
-        }
-    }
-}
-
-struct ArticleDetailView: View {
-    @State private var model = ArticleModel()
-    let url: URL
-
-    var body: some View {
-        WebView(model.page)
-            .task {
-                try? await model.load(url)
-            }
-    }
-}
-```
+Create a `WebPage` when the app needs to load requests directly, observe state, call JavaScript, or customize navigation behavior. A `WebPage` can be associated with only one `WebView` at a time; create separate `WebPage` instances for multiple visible web views.
 
 See [references/loading-and-observation.md](references/loading-and-observation.md) for full examples.
 
 ## Loading and Observing with WebPage
 
-`WebPage` is an `@MainActor` observable type. Use it when you need page state in SwiftUI.
+`WebPage` is an `@MainActor` observable type. Use it when you need page state in SwiftUI. Loading entry points include `load(URLRequest)`, `load(URL)`, `load(html:baseURL:)`, and `load(_:mimeType:characterEncoding:baseURL:)`. Observable properties include `title`, `url`, `isLoading`, `estimatedProgress`, `currentNavigationEvent`, and `backForwardList`.
 
-Common loading entry points:
-- `load(URLRequest)`
-- `load(URL)`
-- `load(html:baseURL:)`
-- `load(_:mimeType:characterEncoding:baseURL:)`
-
-Common observable properties:
-- `title`
-- `url`
-- `isLoading`
-- `estimatedProgress`
-- `currentNavigationEvent`
-- `backForwardList`
-
-```swift
-struct ReaderView: View {
-    @State private var page = WebPage()
-
-    var body: some View {
-        WebView(page)
-            .navigationTitle(page.title ?? "Loading")
-            .overlay {
-                if page.isLoading {
-                    ProgressView(value: page.estimatedProgress)
-                }
-            }
-            .task {
-                do {
-                    for try await _ in page.load(URLRequest(url: URL(string: "https://example.com")!)) {
-                    }
-                } catch {
-                    // Handle load failure.
-                }
-            }
-    }
-}
-```
-
-When you need to react to every navigation, observe the navigation sequence rather than only checking a single property.
+When you need to react to every navigation, observe the `navigations` async sequence and handle its thrown errors rather than checking only a single property:
 
 ```swift
 Task {
@@ -144,13 +70,7 @@ See [references/loading-and-observation.md](references/loading-and-observation.m
 
 ## Navigation Policies
 
-Use `WebPage.NavigationDeciding` to allow, cancel, or customize navigations based on the request or response.
-
-Typical uses:
-- keep app-owned domains inside the embedded web view
-- cancel external domains and hand them off with `openURL`
-- intercept special callback URLs
-- tune `NavigationPreferences`
+Use `WebPage.NavigationDeciding` to allow, cancel, or customize navigations based on the request or response. Typical uses: keep app-owned domains inside the embedded web view, cancel external domains and hand them off with `openURL`, intercept special callback URLs, and tune `NavigationPreferences`.
 
 ```swift
 @MainActor
@@ -162,11 +82,7 @@ final class ArticleNavigationDecider: WebPage.NavigationDeciding {
         preferences: inout WebPage.NavigationPreferences
     ) async -> WKNavigationActionPolicy {
         guard let url = action.request.url else { return .allow }
-
-        if url.host == "example.com" {
-            return .allow
-        }
-
+        if url.host == "example.com" { return .allow }
         urlToOpenExternally = url
         return .cancel
     }
@@ -179,24 +95,7 @@ See [references/navigation-and-javascript.md](references/navigation-and-javascri
 
 ## JavaScript Integration
 
-Use `callJavaScript(_:arguments:in:contentWorld:)` to evaluate JavaScript functions against the page.
-
-Pass a JavaScript function body, not a wrapped function declaration or call expression. Prefer `arguments` for Swift-provided values instead of interpolating untrusted strings into the script.
-
-```swift
-let script = """
-const headings = [...document.querySelectorAll('h1, h2')];
-return headings.map(node => ({
-    id: node.id,
-    text: node.textContent?.trim()
-}));
-"""
-
-let result = try await page.callJavaScript(script)
-let headings = result as? [[String: Any]] ?? []
-```
-
-You can pass values through the `arguments` dictionary and cast the returned `Any` into the Swift type you actually need.
+Use `callJavaScript(_:arguments:in:contentWorld:)` to evaluate JavaScript functions against the page. Pass a JavaScript function body, not a wrapped function declaration or call expression. Prefer `arguments` for Swift-provided values instead of interpolating untrusted strings into the script.
 
 ```swift
 let result = try await page.callJavaScript(
@@ -222,35 +121,19 @@ configuration.urlSchemeHandlers[URLScheme("docs")!] = DocsSchemeHandler(bundle: 
 let page = WebPage(configuration: configuration)
 for try await _ in page.load(URL(string: "docs://article/welcome")!) {
 }
-
 ```
 
-Use this for:
-- bundled documentation or article content
-- offline HTML/CSS/JS assets
-- app-owned resource loading under a custom scheme
-
-Do not overuse custom schemes for normal remote content. Prefer standard HTTPS for server-hosted pages.
+Use this for bundled documentation, offline HTML/CSS/JS assets, and app-owned resource loading under a custom scheme. Do not overuse custom schemes for normal remote content; prefer standard HTTPS for server-hosted pages.
 
 See [references/local-content-and-custom-schemes.md](references/local-content-and-custom-schemes.md).
 
 ## WebView Customization
 
-Use WebView modifiers to match the intended browsing experience.
+Use WebView modifiers to match the intended browsing experience: `webViewBackForwardNavigationGestures(_:)`, `findNavigator(isPresented:)`, `webViewScrollPosition(_:)`, and `webViewOnScrollGeometryChange(...)`.
 
-Useful modifiers and related APIs:
-- `webViewBackForwardNavigationGestures(_:)`
-- `findNavigator(isPresented:)`
-- `webViewScrollPosition(_:)`
-- `webViewOnScrollGeometryChange(...)`
+Apply them only when the user experience needs them: enable back/forward gestures when people are likely to visit multiple pages, add Find in Page when the content is document-like, and sync scroll position only when the app has a sidebar, table of contents, or other explicit navigation affordance.
 
-Apply them only when the user experience needs them.
-
-- Enable back/forward gestures when people are likely to visit multiple pages.
-- Add Find in Page when the content is document-like.
-- Sync scroll position only when the app has a sidebar, table of contents, or other explicit navigation affordance.
-
-Apple’s HIG also applies here: support back/forward navigation when appropriate, but do not turn an app web view into a general-purpose browser.
+Apple's HIG also applies here: support back/forward navigation when appropriate, but do not turn an app web view into a general-purpose browser.
 
 ## Common Mistakes
 

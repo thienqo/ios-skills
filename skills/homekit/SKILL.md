@@ -14,6 +14,7 @@ Control home automation accessories and commission Matter devices into an app ec
 - [Accessories & Characteristics](#accessories--characteristics)
 - [Action Sets & Triggers](#action-sets--triggers)
 - [Matter Device Commissioning](#matter-device-commissioning)
+- [iOS 27 Updates](#ios-27-updates)
 - [Common Mistakes](#common-mistakes)
 - [Review Checklist](#review-checklist)
 - [References](#references)
@@ -104,6 +105,13 @@ try await request.perform()
 ```
 
 The system invokes your `MatterAddDeviceExtensionRequestHandler` subclass in the extension target to complete pairing.
+
+## iOS 27 Updates
+
+- When Apple Intelligence in the Home app is enabled, HomeKit Secure Video recordings are processed on-device and through Private Cloud Compute for video descriptions and search.
+- Apple Intelligence for Home requires an iCloud+ subscription (2 TB or larger).
+
+Sources: https://sosumi.ai/documentation/ios-ipados-release-notes/ios-ipados-27-release-notes
 
 ## Common Mistakes
 
