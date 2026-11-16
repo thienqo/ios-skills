@@ -11,9 +11,7 @@ access control, biometric-gated secrets, CryptoKit, Secure Enclave keys,
 credential storage, certificate trust, keychain sharing, legacy secret
 migration, security testing, and OWASP mobile compliance mapping.
 
-Default to iOS 17+ and Swift concurrency examples when the deployment target is
-unknown. Keep iOS 13+ compatibility notes when the user asks for older targets.
-Treat iOS 26 CryptoKit post-quantum APIs as availability-gated.
+Default to iOS 17+ and Swift concurrency examples when the target is unknown; keep iOS 13+ notes only when asked. Treat iOS 26 CryptoKit post-quantum APIs as availability-gated.
 
 ## Contents
 
@@ -30,10 +28,7 @@ Treat iOS 26 CryptoKit post-quantum APIs as availability-gated.
 
 Classify the request before loading references.
 
-1. Review existing code: run the [Review Checklist](#review-checklist), then
-   load [common-anti-patterns.md](references/common-anti-patterns.md) plus the
-   domain reference for each failing area. Report severity, evidence, and the
-   corrected pattern.
+1. Review existing code: run the [Review Checklist](#review-checklist), then load [common-anti-patterns.md](references/common-anti-patterns.md) plus the domain reference for each failing area; report severity, evidence, and the corrected pattern.
 2. Improve or migrate code: identify the migration type, load the migration
    and target-domain references, preserve existing data, verify the new item,
    then remove legacy storage only after success.
@@ -41,41 +36,11 @@ Classify the request before loading references.
    provided correct patterns, include OSStatus handling and tests, then run the
    relevant checklist.
 
-Do not load every reference file by default. This skill is intentionally split
-for progressive disclosure; load only the files needed by the user's task.
+Do not load every reference file by default; this skill is intentionally split for progressive disclosure. Load only the files needed by the task.
 
 ### Minimum Safe Keychain Write
 
-Use separate add, identity, and update dictionaries; handle every `OSStatus`:
-
-```swift
-func saveSecret(_ data: Data, account: String) throws {
-    let identity: [CFString: Any] = [
-        kSecClass: kSecClassGenericPassword,
-        kSecAttrService: "com.example.app",
-        kSecAttrAccount: account,
-    ]
-    var add = identity
-    add[kSecValueData] = data
-    add[kSecAttrAccessible] = kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
-
-    switch SecItemAdd(add as CFDictionary, nil) {
-    case errSecSuccess:
-        return
-    case errSecDuplicateItem:
-        let status = SecItemUpdate(
-            identity as CFDictionary,
-            [kSecValueData: data] as CFDictionary
-        )
-        guard status == errSecSuccess else { throw KeychainError(status: status) }
-    case let status:
-        throw KeychainError(status: status)
-    }
-}
-```
-
-Load [keychain-fundamentals.md](references/keychain-fundamentals.md) for read,
-delete, access-control, locked-device, and test patterns.
+Use separate add, identity, and update dictionaries, handle every `OSStatus`, and use add-or-update rather than delete-then-add. Load [keychain-fundamentals.md](references/keychain-fundamentals.md) for the full write/read/delete pattern, access-control, locked-device, and test patterns.
 
 ## Reference Loading
 

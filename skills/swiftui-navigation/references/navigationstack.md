@@ -8,6 +8,7 @@
 - [Example: centralized destination mapping](#example-centralized-destination-mapping)
 - [Example: binding per tab (tabs with independent history)](#example-binding-per-tab-tabs-with-independent-history)
 - [Example: generic tabs with per-tab NavigationStack](#example-generic-tabs-with-per-tab-navigationstack)
+- [Example: custom split column (manual HStack)](#example-custom-split-column-manual-hstack)
 - [Design choices to keep](#design-choices-to-keep)
 - [Pitfalls](#pitfalls)
 
@@ -159,6 +160,45 @@ final class TabRouter {
   }
 }
 ```
+
+## Example: custom split column (manual HStack)
+
+For custom multi-column layouts (e.g., a dedicated notification column independent of selection), use a manual `HStack` split with `horizontalSizeClass` checks:
+
+```swift
+@MainActor
+struct AppView: View {
+  @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+  @AppStorage("showSecondaryColumn") private var showSecondaryColumn = true
+
+  var body: some View {
+    HStack(spacing: 0) {
+      primaryColumn
+      if shouldShowSecondaryColumn {
+        Divider().edgesIgnoringSafeArea(.all)
+        secondaryColumn
+      }
+    }
+  }
+
+  private var shouldShowSecondaryColumn: Bool {
+    horizontalSizeClass == .regular
+      && showSecondaryColumn
+  }
+
+  private var primaryColumn: some View {
+    TabView { /* tabs */ }
+  }
+
+  private var secondaryColumn: some View {
+    NotificationsTab()
+      .environment(\.isSecondaryColumn, true)
+      .frame(maxWidth: .secondaryColumnWidth)
+  }
+}
+```
+
+Use the manual HStack split when you need full control or a non-standard secondary column. Use `NavigationSplitView` when you want a standard system layout with minimal customization.
 
 ## Design choices to keep
 

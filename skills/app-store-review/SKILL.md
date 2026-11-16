@@ -99,29 +99,9 @@ If you do not track users across apps or websites, do not show the ATT prompt. A
 
 ### ATT Implementation
 
-```swift
-import AppTrackingTransparency
+Call `ATTrackingManager.requestTrackingAuthorization` before any cross-app or cross-website tracking, switch over `.authorized`, `.denied`/`.restricted`, `.notDetermined`, and `@unknown default`, and disable cross-app/cross-website tracking when the user denies. Request it after the app is active and the user has context for why tracking is requested; do not show the prompt immediately on first launch or stack it with another system permission prompt.
 
-@MainActor
-func requestTrackingPermission() async {
-    let status = await ATTrackingManager.requestTrackingAuthorization()
-    switch status {
-    case .authorized:
-        // Enable tracking, initialize ad SDKs with tracking
-        break
-    case .denied, .restricted:
-        // Use non-personalized ads and disable cross-app/cross-website tracking
-        break
-    case .notDetermined:
-        // Should not happen after request, handle gracefully
-        break
-    @unknown default:
-        break
-    }
-}
-```
-
-**Timing:** Request ATT permission after the app is active and the user has context for why tracking is being requested. Do not show the prompt immediately on first launch or stack it with another system permission prompt.
+See [App Tracking Transparency](references/review-checklists.md#app-tracking-transparency) for the implementation skeleton.
 
 ## EU Digital Markets Act (DMA) Considerations
 

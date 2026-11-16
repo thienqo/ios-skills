@@ -5,9 +5,7 @@ description: "Captures or analyzes iOS memgraph files and persistent heap growth
 
 # iOS Memgraph Analysis
 
-Use memory graphs to prove why memory survives a defined lifetime boundary.
-Separate unreachable leaks from reachable growth, preserve raw tool output, and
-verify the same app-owned type and ownership path after a fix.
+Use memory graphs to prove why memory survives a defined lifetime boundary. Separate unreachable leaks from reachable growth, preserve raw tool output, and verify the same app-owned type and ownership path after a fix.
 
 ## Contents
 

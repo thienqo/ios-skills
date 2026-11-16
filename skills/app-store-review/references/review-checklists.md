@@ -10,6 +10,7 @@
 - Metadata Compliance Checklist
 - HIG Compliance Checklist
 - Pre-Submission Checklist
+- App Tracking Transparency
 
 ## Current Release Requirements
 
@@ -205,3 +206,29 @@ ranking, conversion optimization, screenshot ordering, and A/B testing to
 - [ ] Entitlements justified with usage descriptions
 - [ ] Background modes justified and used
 - [ ] Deployment target is intentionally chosen and tested
+
+## App Tracking Transparency
+
+Request permission with `ATTrackingManager.requestTrackingAuthorization` before any cross-app or cross-website tracking, and respect the user's choice.
+
+```swift
+import AppTrackingTransparency
+
+@MainActor
+func requestTrackingPermission() async {
+    let status = await ATTrackingManager.requestTrackingAuthorization()
+    switch status {
+    case .authorized:
+        // Enable tracking, initialize ad SDKs with tracking
+        break
+    case .denied, .restricted:
+        // Use non-personalized ads and disable cross-app/cross-website tracking
+        break
+    case .notDetermined:
+        // Should not happen after request, handle gracefully
+        break
+    @unknown default:
+        break
+    }
+}
+```
